@@ -2,12 +2,13 @@ This directory contains all the necessary codes for data filtering. We have inte
 
 ## Usage:
 Follow the codes in `run_filtering.m`:  
-* Step 1: Downsample raw motion data from sensor readings: filtering out repetitive data and accelerate the identification process  
+* Step 1: Down sample raw motion data from sensor readings: filtering out repetitive data and accelerate the identification process  
 * Step 2: Apply zero-phase digital filtering to joint angle, velocity, acceleration and torque data.  
 
 Note that identification using motor torque data instead of joint torque data is also acceptable. But the corresponding dynamics model needs to be modified.
 
 ## Scripts:
+
 * `downsampling.m`:
   Apply average sampling method to raw joint angle, velocity, acceleration and torque data. The downsampling rate should be specified manually.
 * `ang_filter.m`:

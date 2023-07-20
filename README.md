@@ -1,7 +1,8 @@
 # Guidance:
 Dynamic parameter identification code for rokae xmate manipulator based on MATLAB, including excitation trajectory optimization, LSM method, and N-E formulation of dynamic equation.
 
-## Project Stucture and Description:
+## Project Structure and Description:
+
 ### Dynamics: 
 - Formulate robot dynamic model through Newton-Euler method.
 - Linearize robot dynamic model to obtain regressor.
@@ -53,6 +54,6 @@ Notes:
 
 ### Excitation Trajectory Optimization:
   Obtain min regressor matrix in `\dynamics` and then turn to `\excitation`.
- 
+
 ### Validation Error Verification:
   Copy raw sensor data in `\filtering` and then turn to `\dynamics`.

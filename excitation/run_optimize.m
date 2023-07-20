@@ -16,4 +16,5 @@ save('.\data\opt_x.mat', 'opt_x');
 % save to txt
 addpath('.\utils\')
 mat2txt('.\data\opt_x.txt', opt_x);
+optimal_traj_vis();
 rmpath('.\utils\')

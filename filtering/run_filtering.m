@@ -16,15 +16,19 @@ pnt = 200;
 % modify FILE PATH to read sensor data
 
 % read data from file
+% t_raw = load('.\data\excit_demo\excit_torque_record.txt');    % 关节力矩传感器中得到的数据
+% % m_raw = load('.\data\excit_demo\excit_motor_record.txt');   % 电机传感器中得到的数据
+% q_raw = load('.\data\excit_demo\excit_ang_record.txt');
+% qd_raw = load('.\data\excit_demo\excit_vel_record.txt');
+% qdd_raw = load('.\data\excit_demo\excit_acc_record.txt');
 t_raw = load('.\data\excit\excit_torque_record.txt');
-m_raw = load('.\data\excit\excit_motor_record.txt');
 q_raw = load('.\data\excit\excit_ang_record.txt');
 qd_raw = load('.\data\excit\excit_vel_record.txt');
 qdd_raw = load('.\data\excit\excit_acc_record.txt');
 
 % downsampling
 [q_ds, qd_ds, qdd_ds, t_ds] = downsampling(q_raw, qd_raw, qdd_raw, t_raw, pnt);
-[~, ~, ~, m_ds] = downsampling(q_raw, qd_raw, qdd_raw, m_raw, pnt);
+% [~, ~, ~, m_ds] = downsampling(q_raw, qd_raw, qdd_raw, m_raw, pnt);
 
 %% REMEMBER MANUALLY:
 % modify FILE PATH to save figures in ang_filter\vel_filter\acc_filter\trq_filter.m

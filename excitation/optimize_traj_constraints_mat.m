@@ -13,11 +13,13 @@ function [A, b, Aeq, beq] = optimize_traj_constraints_mat(wf, Ts, N)
 % o11 = zeros(1, 11);
 o7 = zeros(7, 1) * 1e-4;
 % initial configuration
-q_init = [0; pi/6; 0; pi/3; 0; pi/2; 0];
+% q_init = [0; pi/6; 0; pi/3; 0; pi/2; 0];
+q_init = [0; 0; 0; 0; 0; 0; 0];
 
 A_ = zeros(7*3, 77);
 A = zeros(7*2*3*(N-1), 77); b = zeros(7*2*3*(N-1), 1);
 Aeq = zeros(7*3*2, 77); beq = zeros(7*3*2, 1);
+% Aeq = zeros(7*3*2 + 3, 77); beq = zeros(7*3*2 + 3, 1);
 
 for k = 0:N
 	time = k * Ts;
@@ -44,19 +46,21 @@ for k = 0:N
 	        -wf * 5 * sin(wf * time * 5), wf * 5 * cos(wf * time * 5), 0];
     
     for j = 1:7
-        s_col = 11 * (j - 1) + 1; e_col = 11 * j;
+        s_col = 11 * (j - 1) + 1; 
+        e_col = 11 * j;
+
         A_(j, s_col:e_col) = qs;
         A_(7 + j, s_col:e_col) = qds;
         A_(14 + j, s_col:e_col) = qdds;
     end
 
     if (k >= 1 && k <= N-1)     % INEQUALITY CONSTRAINTS s.t. Ax<b
-	    b_ = [2.9671; 2.0944; 2.9671; 2.0944; 2.9671; 2.0944; 6.2832;
-	          2.175; 2.175; 2.175; 2.175; 2.610; 2.610; 2.610;
-		      15; 7.5; 10; 10; 15; 15; 20;
-		      2.9671; 2.0944; 2.9671; 2.0944; 2.9671; 2.0944; 6.2832;
-	          2.175; 2.175; 2.175; 2.175; 2.610; 2.610; 2.610;
-		      15; 7.5; 10; 10; 15; 15; 20];
+	    b_ = [2.9671; 2.0944 * 0.5; 2.9671; 2.0944 * 0.5; 2.9671; 2.0944; 6.2832;
+	          2.175 * 0.6; 2.175 * 0.6; 2.175 * 0.6; 2.175 * 0.6; 2.610 * 0.6; 2.610 * 0.6; 2.610 * 0.6;
+		      15 * 0.6; 7.5 * 0.6; 10 * 0.6; 10 * 0.6; 15 * 0.6; 15 * 0.6; 20 * 0.6;
+		      2.9671; 2.0944 * 0.5; 2.9671; 2.0944 * 0.5; 2.9671; 2.0944; 6.2832;
+	          2.175 * 0.6; 2.175 * 0.6; 2.175 * 0.6; 2.175 * 0.6; 2.610 * 0.6; 2.610 * 0.6; 2.610 * 0.6;
+		      15 * 0.6; 7.5 * 0.6; 10 * 0.6; 10 * 0.6; 15 * 0.6; 15 * 0.6; 20 * 0.6];
 	    
         % b = [q1, q2, q3, q4, q5, q6, q7, qd1, qd2, qd3, qd4, qd5, qd6, qd7,
         %      qdd1, qdd2, qdd3, qdd4, qdd5, qdd6, qdd7]
@@ -77,6 +81,12 @@ for k = 0:N
     end
 end
 
+% n1component = [1, 0, 1/2, 0, 1/3, 0, 1/4, 0, 1/5, 0, 0];
+% n2component = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0];
+% n3component = [1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 0];
+% Aeq(42 + 1, :) = [n1component n1component n1component n1component n1component n1component n1component];
+% Aeq(42 + 2, :) = [n2component n2component n2component n2component n2component n2component n2component];
+% Aeq(42 + 3, :) = [n3component n3component n3component n3component n3component n3component n3component];
 end
 
 % A_ = [qs, o11, o11, o11, o11, o11, o11;

@@ -14,7 +14,7 @@ traj_order = evalin('base', 'traj_order');
 dof = evalin('base', 'dof');
 % minimal param set
 pnum_min = evalin('base', 'pnum_min');
-disp('<INFO> Parameters LOADED!!')
+disp('<INFO> Parameters LOADED!!============================================================================================')
 
 %% INSTANTIATION
 ww = zeros(traj_n * dof, pnum_min);
@@ -64,8 +64,10 @@ end
 [opt_q0, opt_qd0, opt_qdd0] = traj_func(x, dof, 0, traj_wf, traj_order);
 [opt_qn, opt_qdn, opt_qddn] = traj_func(x, dof, traj_n*traj_Ts, traj_wf, traj_order);
 q_init = [0; pi/6; 0; pi/3; 0; pi/2; 0];    % initial configuration
-disp(['initial error, q: ', num2str(sum(opt_q0 - q_init)), ', qd: ', num2str(sum(opt_qd0)), ', qd: ', num2str(sum(opt_qdd0))]);
-disp(['terminal error, q: ', num2str(sum(opt_qn - q_init)), ', qd: ', num2str(sum(opt_qdn)), ', qd: ', num2str(sum(opt_qddn))]);
+% disp(['initial error, q: ', num2str(sum((opt_q0 - q_init).^2)), ', qd: ', num2str(sum(opt_qd0.^2)), ', qd: ', num2str(sum(opt_qdd0.^2))]);
+disp(['initial error, q: ', num2str((opt_q0 - q_init)'), ', qd: ', num2str(opt_qd0')]);
+% disp(['terminal error, q: ', num2str(sum((opt_qn - q_init).^2)), ', qd: ', num2str(sum(opt_qdn.^2)), ', qd: ', num2str(sum(opt_qddn.^2))]);
+disp(['terminal error, q: ', num2str((opt_qn - q_init)'), ', qd: ', num2str(opt_qdn')]);
 
 %% CONDITION NUMBER
 f = cond(ww);
