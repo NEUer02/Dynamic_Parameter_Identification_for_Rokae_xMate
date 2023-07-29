@@ -2,7 +2,7 @@
 % @brief: estimate parameter using Least Square Method (LSM) in arithmetic expression manner
 
 %% PARAMETER
-load('.\data\filt.mat');
+load('.\data\excit_filtering.mat');
 % filtered data
 q_filt = evalin('base', 'q_filt');
 qd_filt = evalin('base', 'qd_filt');

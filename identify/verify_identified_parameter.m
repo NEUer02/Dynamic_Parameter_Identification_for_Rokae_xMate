@@ -60,5 +60,5 @@ print(15, '-dpng', '-r600', '.\figs\holistic_diff.png');
 disp('Identification error for 7 joints:');
 disp(sqrt(error / 200));
 
-close all;
+% close all;
 rmpath('./utils');

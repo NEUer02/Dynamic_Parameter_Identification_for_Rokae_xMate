@@ -20,7 +20,7 @@ dof = 7;
 % load optimal parameter
 % load('.\data\opt_x_lie.mat');
 % load('.\data\opt_x.mat');
-load('N:\tmp\opt_x.mat');
+load('data\opt_x.mat');
 
 %% TRAJECTORY COMPUTATION (FOURIER-BASED)
 opt_q = zeros(traj_n, dof);

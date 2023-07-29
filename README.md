@@ -1,4 +1,18 @@
 # Guidance:
+
+> 写在前面：
+>
+> 本仓库基于[YanjunLIU-ac](https://github.com/YanjunLIU-ac/Dynamic_Parameter_Identification_for_Rokae_xMate)的仓库进行修改。下面的文档也出自原作者。
+>
+> 本仓库对原作者的仓库修改的部分为：
+>
+> 1. 替换了真实的上机数据和回归矩阵；
+> 2. 归回矩阵使用symoro计算得出。symoro可以参考清风伴酒的[配置过程](https://zhuanlan.zhihu.com/p/621143395)和[使用指南](https://zhuanlan.zhihu.com/p/447348147)。一同附上symoro文件；
+>
+> 鸣谢[YanjunLIU-ac](https://github.com/YanjunLIU-ac)和[清风伴酒](https://www.zhihu.com/people/xukun-68-46)的努力和付出！
+
+
+
 Dynamic parameter identification code for rokae xmate manipulator based on MATLAB, including excitation trajectory optimization, LSM method, and N-E formulation of dynamic equation.
 
 ## Project Structure and Description:
@@ -57,3 +71,6 @@ Notes:
 
 ### Validation Error Verification:
   Copy raw sensor data in `\filtering` and then turn to `\dynamics`.
+
+
+

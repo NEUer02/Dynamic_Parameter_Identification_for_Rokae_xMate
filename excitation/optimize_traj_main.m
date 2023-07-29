@@ -27,13 +27,11 @@ pnum_min = 70;
 [A, b, Aeq, beq] = optimize_traj_constraints_mat(traj_wf, traj_Ts, traj_n);
 
 %% SOLVE OPTIMIZATION PROBLEM
-% load('F:\Master\毕设文件\code\Dynamic_Parameter_Identification_for_Rokae_xMate\excitation\data\opt_x0.mat');
 opt_x0 = zeros(77, 1) + 0.01;		% initial value
 object = @optimize_traj_object_fun_math;
 nonlcon = @optimize_traj_nonl_constraints;
 options = optimoptions(@fmincon, 'MaxIterations', 10000, 'MaxFunctionEvaluations', 10000);
 [opt_x, opt_fval] = fmincon(object, opt_x0, A, b, Aeq, beq, [], [], nonlcon, options);
-% [opt_x, opt_fval] = fmincon(object, opt_x0, A, b, Aeq, beq);
 
 %% VISUALIZATION
 rmpath('.\utils\');
