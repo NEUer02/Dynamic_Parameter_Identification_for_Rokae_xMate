@@ -1,0 +1,60 @@
+(* Robotname = 'ROKEA_base_base' *)
+NL = 7
+NJ = 7
+NF = 7
+Type = 0
+is_floating = False
+is_mobile = False
+
+(* Geometric parameters *)
+ant = {0,1,2,3,4,5,6}
+sigma = {0,0,0,0,0,0,0}
+b = {0,0,0,0,0,0,0}
+d = {0,0,0,0,0,0,0}
+r = {0.341500000000000,0,0.394000000000000,0,0.366000000000000,0,0.250300000000000}
+gamma = {0,0,0,0,0,0,0}
+alpha = {0,-pi/2,pi/2,-pi/2,pi/2,-pi/2,pi/2}
+mu = {1,1,1,1,1,1,1}
+theta = {theta(1),theta(2),theta(3),theta(4),theta(5),theta(6),theta(7)}
+
+(* Dynamic parameters and external forces *)
+XX = {0,XXR2,XXR3,XXR4,XXR5,XXR6,XXR7}
+XY = {0,XY2,XY3,XY4,XY5,XY6,XY7}
+XZ = {0,XZ2,XZ3,XZ4,XZ5,XZ6,XZ7}
+YY = {0,0,0,0,0,0,0}
+YZ = {0,YZ2,YZ3,YZ4,YZ5,YZ6,YZ7}
+ZZ = {ZZR1,ZZR2,ZZR3,ZZR4,ZZR5,ZZR6,ZZ7}
+MX = {0,MX2,MX3,MX4,MX5,MX6,MX7}
+MY = {0,MYR2,MYR3,MYR4,MYR5,MYR6,MY7}
+MZ = {0,0,0,0,0,0,0}
+M = {0,0,0,0,0,0,0}
+IA = {0,0,0,0,0,0,0}
+FV = {FV1,FV2,FV3,FV4,FV5,FV6,FV7}
+FS = {FS1,FS2,FS3,FS4,FS5,FS6,FS7}
+FX = {0,0,0,0,0,0,0}
+FY = {0,0,0,0,0,0,0}
+FZ = {0,0,0,0,0,0,0}
+CX = {0,0,0,0,0,0,0}
+CY = {0,0,0,0,0,0,0}
+CZ = {0,0,0,0,0,0,0}
+
+(* Joint parameters *)
+eta = {0,0,0,0,0,0,0}
+k = {0,0,0,0,0,0,0}
+QP = {QP(1),QP(2),QP(3),QP(4),QP(5),QP(6),QP(7)}
+QDP = {QDP(1),QDP(2),QDP(3),QDP(4),QDP(5),QDP(6),QDP(7)}
+GAM = {GAM(1),GAM(2),GAM(3),GAM(4),GAM(5),GAM(6),GAM(7)}
+
+(* Velocity and acceleration of the base *)
+W0 = {0,0,0}
+WP0 = {0,0,0}
+V0 = {0,0,0}
+VP0 = {0,0,0}
+
+(* Acceleration of gravity *)
+G = {0,0,-g}
+
+(* Transformation of 0 frame position fT0 *)
+Z = {1,0,0,0,0,1,0,0,0,0,1,0,0,0,0,1}
+
+(* End of definition *)

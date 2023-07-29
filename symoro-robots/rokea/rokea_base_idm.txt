@@ -1,0 +1,329 @@
+Inverse Dynamic Model using Newton-Euler Algorithm
+Robot with rigid joints and fixed base
+
+
+Geometric parameters
+j       ant     sigma   mu      gamma   b       alpha   d       theta   r       
+1       0       0       1       0       0       0       0       theta(1)0.341500000000000
+2       1       0       1       0       0       -pi/2   0       theta(2)0       
+3       2       0       1       0       0       pi/2    0       theta(3)0.394000000000000
+4       3       0       1       0       0       -pi/2   0       theta(4)0       
+5       4       0       1       0       0       pi/2    0       theta(5)0.366000000000000
+6       5       0       1       0       0       -pi/2   0       theta(6)0       
+7       6       0       1       0       0       pi/2    0       theta(7)0.250300000000000
+
+Dynamic inertia parameters
+j       XX      XY      XZ      YY      YZ      ZZ      MX      MY      MZ      M       IA      
+1       XX1     XY1     XZ1     YY1     YZ1     ZZ1     MX1     MY1     MZ1     M1      0       
+2       XX2     XY2     XZ2     YY2     YZ2     ZZ2     MX2     MY2     MZ2     M2      0       
+3       XX3     XY3     XZ3     YY3     YZ3     ZZ3     MX3     MY3     MZ3     M3      0       
+4       XX4     XY4     XZ4     YY4     YZ4     ZZ4     MX4     MY4     MZ4     M4      0       
+5       XX5     XY5     XZ5     YY5     YZ5     ZZ5     MX5     MY5     MZ5     M5      0       
+6       XX6     XY6     XZ6     YY6     YZ6     ZZ6     MX6     MY6     MZ6     M6      0       
+7       XX7     XY7     XZ7     YY7     YZ7     ZZ7     MX7     MY7     MZ7     M7      0       
+
+External forces and joint parameters
+j       FX      FY      FZ      CX      CY      CZ      FS      FV      QP      QDP     GAM     eta     k       
+1       0       0       0       0       0       0       FS1     FV1     QP(1)   QDP(1)  GAM(1)  0       0       
+2       0       0       0       0       0       0       FS2     FV2     QP(2)   QDP(2)  GAM(2)  0       0       
+3       0       0       0       0       0       0       FS3     FV3     QP(3)   QDP(3)  GAM(3)  0       0       
+4       0       0       0       0       0       0       FS4     FV4     QP(4)   QDP(4)  GAM(4)  0       0       
+5       0       0       0       0       0       0       FS5     FV5     QP(5)   QDP(5)  GAM(5)  0       0       
+6       0       0       0       0       0       0       FS6     FV6     QP(6)   QDP(6)  GAM(6)  0       0       
+7       0       0       0       0       0       0       FS7     FV7     QP(7)   QDP(7)  GAM(7)  0       0       
+
+Base velicities parameters
+axis    W0      WP0     V0      VP0     G       
+X       0       0       0       0       0       
+Y       0       0       0       0       0       
+Z       0       0       0       0       -g      
+
+Equations:
+A111 = cos(theta(1));
+A211 = sin(theta(1));
+A112 = cos(theta(2));
+A312 = -sin(theta(2));
+A113 = cos(theta(3));
+A313 = sin(theta(3));
+A114 = cos(theta(4));
+A314 = -sin(theta(4));
+A115 = cos(theta(5));
+A315 = sin(theta(5));
+A116 = cos(theta(6));
+A316 = -sin(theta(6));
+A117 = cos(theta(7));
+A317 = sin(theta(7));
+W31 = QP(1);
+WP31 = QDP(1);
+DV61 = W31**2;
+W12 = A312*W31;
+W22 = -A112*W31;
+W32 = QP(2);
+WP12 = A312*WP31 + W22*QP(2);
+WP22 = -A112*WP31 - W12*QP(2);
+WP32 = QDP(2);
+DV12 = W12**2;
+DV22 = W12*W22;
+DV32 = W12*W32;
+DV42 = W22**2;
+DV52 = W22*W32;
+DV62 = W32**2;
+U112 = -DV42 - DV62;
+U212 = DV22 + WP32;
+U312 = DV32 - WP22;
+U122 = DV22 - WP32;
+U222 = -DV12 - DV62;
+U322 = DV52 + WP12;
+U132 = DV32 + WP22;
+U232 = DV52 - WP12;
+U332 = -DV12 - DV42;
+VP12 = A312*g;
+VP22 = -A112*g;
+W13 = A113*W12 + A313*W32;
+W23 = A113*W32 - A313*W12;
+W33 = -W22 + QP(3);
+WP13 = A113*WP12 + A313*WP32 + W23*QP(3);
+WP23 = A113*WP32 - A313*WP12 - W13*QP(3);
+WP33 = -WP22 + QDP(3);
+DV13 = W13**2;
+DV23 = W13*W23;
+DV33 = W13*W33;
+DV43 = W23**2;
+DV53 = W23*W33;
+DV63 = W33**2;
+U113 = -DV43 - DV63;
+U213 = DV23 + WP33;
+U313 = DV33 - WP23;
+U123 = DV23 - WP33;
+U223 = -DV13 - DV63;
+U323 = DV53 + WP13;
+U133 = DV33 + WP23;
+U233 = DV53 - WP13;
+U333 = -DV13 - DV43;
+VSP13 = -0.394*U122 + VP12;
+VSP23 = -0.394*U222 + VP22;
+VSP33 = -0.394*U322;
+VP13 = A113*VSP13 + A313*VSP33;
+VP23 = A113*VSP33 - A313*VSP13;
+W14 = A114*W13 + A314*W33;
+W24 = -A114*W33 + A314*W13;
+W34 = W23 + QP(4);
+WP14 = A114*WP13 + A314*WP33 + W24*QP(4);
+WP24 = -A114*WP33 + A314*WP13 - W14*QP(4);
+WP34 = WP23 + QDP(4);
+DV14 = W14**2;
+DV24 = W14*W24;
+DV34 = W14*W34;
+DV44 = W24**2;
+DV54 = W24*W34;
+DV64 = W34**2;
+U114 = -DV44 - DV64;
+U214 = DV24 + WP34;
+U314 = DV34 - WP24;
+U124 = DV24 - WP34;
+U224 = -DV14 - DV64;
+U324 = DV54 + WP14;
+U134 = DV34 + WP24;
+U234 = DV54 - WP14;
+U334 = -DV14 - DV44;
+VP14 = A114*VP13 - A314*VSP23;
+VP24 = A114*VSP23 + A314*VP13;
+W15 = A115*W14 + A315*W34;
+W25 = A115*W34 - A315*W14;
+W35 = -W24 + QP(5);
+WP15 = A115*WP14 + A315*WP34 + W25*QP(5);
+WP25 = A115*WP34 - A315*WP14 - W15*QP(5);
+WP35 = -WP24 + QDP(5);
+DV15 = W15**2;
+DV25 = W15*W25;
+DV35 = W15*W35;
+DV45 = W25**2;
+DV55 = W25*W35;
+DV65 = W35**2;
+U115 = -DV45 - DV65;
+U215 = DV25 + WP35;
+U315 = DV35 - WP25;
+U125 = DV25 - WP35;
+U225 = -DV15 - DV65;
+U325 = DV55 + WP15;
+U135 = DV35 + WP25;
+U235 = DV55 - WP15;
+U335 = -DV15 - DV45;
+VSP15 = -0.366*U124 + VP14;
+VSP25 = -0.366*U224 + VP24;
+VSP35 = -0.366*U324 + VP23;
+VP15 = A115*VSP15 + A315*VSP35;
+VP25 = A115*VSP35 - A315*VSP15;
+W16 = A116*W15 + A316*W35;
+W26 = -A116*W35 + A316*W15;
+W36 = W25 + QP(6);
+WP16 = A116*WP15 + A316*WP35 + W26*QP(6);
+WP26 = -A116*WP35 + A316*WP15 - W16*QP(6);
+WP36 = WP25 + QDP(6);
+DV16 = W16**2;
+DV26 = W16*W26;
+DV36 = W16*W36;
+DV46 = W26**2;
+DV56 = W26*W36;
+DV66 = W36**2;
+U116 = -DV46 - DV66;
+U216 = DV26 + WP36;
+U316 = DV36 - WP26;
+U126 = DV26 - WP36;
+U226 = -DV16 - DV66;
+U326 = DV56 + WP16;
+U136 = DV36 + WP26;
+U236 = DV56 - WP16;
+U336 = -DV16 - DV46;
+VP16 = A116*VP15 - A316*VSP25;
+VP26 = A116*VSP25 + A316*VP15;
+W17 = A117*W16 + A317*W36;
+W27 = A117*W36 - A317*W16;
+W37 = -W26 + QP(7);
+WP17 = A117*WP16 + A317*WP36 + W27*QP(7);
+WP27 = A117*WP36 - A317*WP16 - W17*QP(7);
+WP37 = -WP26 + QDP(7);
+DV17 = W17**2;
+DV27 = W17*W27;
+DV37 = W17*W37;
+DV47 = W27**2;
+DV57 = W27*W37;
+DV67 = W37**2;
+U117 = -DV47 - DV67;
+U217 = DV27 + WP37;
+U317 = DV37 - WP27;
+U127 = DV27 - WP37;
+U227 = -DV17 - DV67;
+U327 = DV57 + WP17;
+U137 = DV37 + WP27;
+U237 = DV57 - WP17;
+U337 = -DV17 - DV47;
+VSP17 = -0.2503*U126 + VP16;
+VSP27 = -0.2503*U226 + VP26;
+VSP37 = -0.2503*U326 + VP25;
+VP17 = A117*VSP17 + A317*VSP37;
+VP27 = A117*VSP37 - A317*VSP17;
+F11 = -DV61*MX1 - MY1*WP31;
+F21 = -DV61*MY1 + MX1*WP31;
+F31 = M1*g;
+PSI11 = W31*XZ1;
+PSI21 = W31*YZ1;
+PSI31 = W31*ZZ1;
+No11 = -PSI21*W31 + WP31*XZ1;
+No21 = PSI11*W31 + WP31*YZ1;
+No31 = WP31*ZZ1;
+F12 = M2*VP12 + MX2*U112 + MY2*U122 + MZ2*U132;
+F22 = M2*VP22 + MX2*U212 + MY2*U222 + MZ2*U232;
+F32 = MX2*U312 + MY2*U322 + MZ2*U332;
+PSI12 = W12*XX2 + W22*XY2 + W32*XZ2;
+PSI22 = W12*XY2 + W22*YY2 + W32*YZ2;
+PSI32 = W12*XZ2 + W22*YZ2 + W32*ZZ2;
+No12 = -PSI22*W32 + PSI32*W22 + WP12*XX2 + WP22*XY2 + WP32*XZ2;
+No22 = PSI12*W32 - PSI32*W12 + WP12*XY2 + WP22*YY2 + WP32*YZ2;
+No32 = -PSI12*W22 + PSI22*W12 + WP12*XZ2 + WP22*YZ2 + WP32*ZZ2;
+F13 = M3*VP13 + MX3*U113 + MY3*U123 + MZ3*U133;
+F23 = M3*VP23 + MX3*U213 + MY3*U223 + MZ3*U233;
+F33 = -M3*VSP23 + MX3*U313 + MY3*U323 + MZ3*U333;
+PSI13 = W13*XX3 + W23*XY3 + W33*XZ3;
+PSI23 = W13*XY3 + W23*YY3 + W33*YZ3;
+PSI33 = W13*XZ3 + W23*YZ3 + W33*ZZ3;
+No13 = -PSI23*W33 + PSI33*W23 + WP13*XX3 + WP23*XY3 + WP33*XZ3;
+No23 = PSI13*W33 - PSI33*W13 + WP13*XY3 + WP23*YY3 + WP33*YZ3;
+No33 = -PSI13*W23 + PSI23*W13 + WP13*XZ3 + WP23*YZ3 + WP33*ZZ3;
+F14 = M4*VP14 + MX4*U114 + MY4*U124 + MZ4*U134;
+F24 = M4*VP24 + MX4*U214 + MY4*U224 + MZ4*U234;
+F34 = M4*VP23 + MX4*U314 + MY4*U324 + MZ4*U334;
+PSI14 = W14*XX4 + W24*XY4 + W34*XZ4;
+PSI24 = W14*XY4 + W24*YY4 + W34*YZ4;
+PSI34 = W14*XZ4 + W24*YZ4 + W34*ZZ4;
+No14 = -PSI24*W34 + PSI34*W24 + WP14*XX4 + WP24*XY4 + WP34*XZ4;
+No24 = PSI14*W34 - PSI34*W14 + WP14*XY4 + WP24*YY4 + WP34*YZ4;
+No34 = -PSI14*W24 + PSI24*W14 + WP14*XZ4 + WP24*YZ4 + WP34*ZZ4;
+F15 = M5*VP15 + MX5*U115 + MY5*U125 + MZ5*U135;
+F25 = M5*VP25 + MX5*U215 + MY5*U225 + MZ5*U235;
+F35 = -M5*VSP25 + MX5*U315 + MY5*U325 + MZ5*U335;
+PSI15 = W15*XX5 + W25*XY5 + W35*XZ5;
+PSI25 = W15*XY5 + W25*YY5 + W35*YZ5;
+PSI35 = W15*XZ5 + W25*YZ5 + W35*ZZ5;
+No15 = -PSI25*W35 + PSI35*W25 + WP15*XX5 + WP25*XY5 + WP35*XZ5;
+No25 = PSI15*W35 - PSI35*W15 + WP15*XY5 + WP25*YY5 + WP35*YZ5;
+No35 = -PSI15*W25 + PSI25*W15 + WP15*XZ5 + WP25*YZ5 + WP35*ZZ5;
+F16 = M6*VP16 + MX6*U116 + MY6*U126 + MZ6*U136;
+F26 = M6*VP26 + MX6*U216 + MY6*U226 + MZ6*U236;
+F36 = M6*VP25 + MX6*U316 + MY6*U326 + MZ6*U336;
+PSI16 = W16*XX6 + W26*XY6 + W36*XZ6;
+PSI26 = W16*XY6 + W26*YY6 + W36*YZ6;
+PSI36 = W16*XZ6 + W26*YZ6 + W36*ZZ6;
+No16 = -PSI26*W36 + PSI36*W26 + WP16*XX6 + WP26*XY6 + WP36*XZ6;
+No26 = PSI16*W36 - PSI36*W16 + WP16*XY6 + WP26*YY6 + WP36*YZ6;
+No36 = -PSI16*W26 + PSI26*W16 + WP16*XZ6 + WP26*YZ6 + WP36*ZZ6;
+F17 = M7*VP17 + MX7*U117 + MY7*U127 + MZ7*U137;
+F27 = M7*VP27 + MX7*U217 + MY7*U227 + MZ7*U237;
+F37 = -M7*VSP27 + MX7*U317 + MY7*U327 + MZ7*U337;
+PSI17 = W17*XX7 + W27*XY7 + W37*XZ7;
+PSI27 = W17*XY7 + W27*YY7 + W37*YZ7;
+PSI37 = W17*XZ7 + W27*YZ7 + W37*ZZ7;
+No17 = -PSI27*W37 + PSI37*W27 + WP17*XX7 + WP27*XY7 + WP37*XZ7;
+No27 = PSI17*W37 - PSI37*W17 + WP17*XY7 + WP27*YY7 + WP37*YZ7;
+No37 = -PSI17*W27 + PSI27*W17 + WP17*XZ7 + WP27*YZ7 + WP37*ZZ7;
+N17 = -MY7*VSP27 - MZ7*VP27 + No17;
+N27 = MX7*VSP27 + MZ7*VP17 + No27;
+N37 = MX7*VP27 - MY7*VP17 + No37;
+FDI17 = A117*F17 - A317*F27;
+FDI37 = A117*F27 + A317*F17;
+E16 = F16 + FDI17;
+E26 = F26 - F37;
+E36 = F36 + FDI37;
+N16 = A117*N17 - A317*N27 - 0.2503*FDI37 + MY6*VP25 - MZ6*VP26 + No16;
+N26 = -MX6*VP25 + MZ6*VP16 - N37 + No26;
+N36 = A117*N27 + A317*N17 + 0.2503*FDI17 + MX6*VP26 - MY6*VP16 + No36;
+FDI16 = A116*E16 + A316*E26;
+FDI36 = -A116*E26 + A316*E16;
+E15 = F15 + FDI16;
+E25 = E36 + F25;
+E35 = F35 + FDI36;
+N15 = A116*N16 + A316*N26 - MY5*VSP25 - MZ5*VP25 + No15;
+N25 = MX5*VSP25 + MZ5*VP15 + N36 + No25;
+N35 = -A116*N26 + A316*N16 + MX5*VP25 - MY5*VP15 + No35;
+FDI15 = A115*E15 - A315*E25;
+FDI35 = A115*E25 + A315*E15;
+E14 = F14 + FDI15;
+E24 = -E35 + F24;
+E34 = F34 + FDI35;
+N14 = A115*N15 - A315*N25 - 0.366*FDI35 + MY4*VP23 - MZ4*VP24 + No14;
+N24 = -MX4*VP23 + MZ4*VP14 - N35 + No24;
+N34 = A115*N25 + A315*N15 + 0.366*FDI15 + MX4*VP24 - MY4*VP14 + No34;
+FDI14 = A114*E14 + A314*E24;
+FDI34 = -A114*E24 + A314*E14;
+E13 = F13 + FDI14;
+E23 = E34 + F23;
+E33 = F33 + FDI34;
+N13 = A114*N14 + A314*N24 - MY3*VSP23 - MZ3*VP23 + No13;
+N23 = MX3*VSP23 + MZ3*VP13 + N34 + No23;
+N33 = -A114*N24 + A314*N14 + MX3*VP23 - MY3*VP13 + No33;
+FDI13 = A113*E13 - A313*E23;
+FDI33 = A113*E23 + A313*E13;
+E12 = F12 + FDI13;
+E22 = -E33 + F22;
+E32 = F32 + FDI33;
+N12 = A113*N13 - A313*N23 - 0.394*FDI33 - MZ2*VP22 + No12;
+N22 = MZ2*VP12 - N33 + No22;
+N32 = A113*N23 + A313*N13 + 0.394*FDI13 + MX2*VP22 - MY2*VP12 + No32;
+FDI12 = A112*E12 + A312*E22;
+FDI32 = -A112*E22 + A312*E12;
+E11 = F11 + FDI12;
+E21 = E32 + F21;
+E31 = F31 + FDI32;
+N11 = A112*N12 + A312*N22 + MY1*g + No11;
+N21 = -MX1*g + N32 + No21;
+N31 = -A112*N22 + A312*N12 + No31;
+FDI11 = A111*E11 - A211*E21;
+FDI21 = A111*E21 + A211*E11;
+GAM1 = FS1*sign(QP(1)) + FV1*QP(1) + N31;
+GAM2 = FS2*sign(QP(2)) + FV2*QP(2) + N32;
+GAM3 = FS3*sign(QP(3)) + FV3*QP(3) + N33;
+GAM4 = FS4*sign(QP(4)) + FV4*QP(4) + N34;
+GAM5 = FS5*sign(QP(5)) + FV5*QP(5) + N35;
+GAM6 = FS6*sign(QP(6)) + FV6*QP(6) + N36;
+GAM7 = FS7*sign(QP(7)) + FV7*QP(7) + N37;
+*=*

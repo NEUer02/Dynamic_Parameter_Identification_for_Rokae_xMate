@@ -1,0 +1,109 @@
+Base Inertial Parameters equations
+
+Geometric parameters
+j       ant     sigma   mu      gamma   b       alpha   d       theta   r       
+1       0       0       1       0       0       0       0       theta(1)0.341500000000000
+2       1       0       1       0       0       -pi/2   0       theta(2)0       
+3       2       0       1       0       0       pi/2    0       theta(3)0.394000000000000
+4       3       0       1       0       0       -pi/2   0       theta(4)0       
+5       4       0       1       0       0       pi/2    0       theta(5)0.366000000000000
+6       5       0       1       0       0       -pi/2   0       theta(6)0       
+7       6       0       1       0       0       pi/2    0       theta(7)0.250300000000000
+
+Dynamic inertia parameters
+j       XX      XY      XZ      YY      YZ      ZZ      MX      MY      MZ      M       IA      
+1       XX1     XY1     XZ1     YY1     YZ1     ZZ1     MX1     MY1     MZ1     M1      0       
+2       XX2     XY2     XZ2     YY2     YZ2     ZZ2     MX2     MY2     MZ2     M2      0       
+3       XX3     XY3     XZ3     YY3     YZ3     ZZ3     MX3     MY3     MZ3     M3      0       
+4       XX4     XY4     XZ4     YY4     YZ4     ZZ4     MX4     MY4     MZ4     M4      0       
+5       XX5     XY5     XZ5     YY5     YZ5     ZZ5     MX5     MY5     MZ5     M5      0       
+6       XX6     XY6     XZ6     YY6     YZ6     ZZ6     MX6     MY6     MZ6     M6      0       
+7       XX7     XY7     XZ7     YY7     YZ7     ZZ7     MX7     MY7     MZ7     M7      0       
+
+External forces and joint parameters
+j       FX      FY      FZ      CX      CY      CZ      FS      FV      QP      QDP     GAM     eta     k       
+1       0       0       0       0       0       0       FS1     FV1     QP(1)   QDP(1)  GAM(1)  0       0       
+2       0       0       0       0       0       0       FS2     FV2     QP(2)   QDP(2)  GAM(2)  0       0       
+3       0       0       0       0       0       0       FS3     FV3     QP(3)   QDP(3)  GAM(3)  0       0       
+4       0       0       0       0       0       0       FS4     FV4     QP(4)   QDP(4)  GAM(4)  0       0       
+5       0       0       0       0       0       0       FS5     FV5     QP(5)   QDP(5)  GAM(5)  0       0       
+6       0       0       0       0       0       0       FS6     FV6     QP(6)   QDP(6)  GAM(6)  0       0       
+7       0       0       0       0       0       0       FS7     FV7     QP(7)   QDP(7)  GAM(7)  0       0       
+
+Base velicities parameters
+axis    W0      WP0     V0      VP0     G       
+X       0       0       0       0       0       
+Y       0       0       0       0       0       
+Z       0       0       0       0       -g      
+
+Equations:
+A111 = cos(theta(1));
+A211 = sin(theta(1));
+A112 = cos(theta(2));
+A312 = -sin(theta(2));
+A113 = cos(theta(3));
+A313 = sin(theta(3));
+A114 = cos(theta(4));
+A314 = -sin(theta(4));
+A115 = cos(theta(5));
+A315 = sin(theta(5));
+A116 = cos(theta(6));
+A316 = -sin(theta(6));
+A117 = cos(theta(7));
+A317 = sin(theta(7));
+LamMS217 = 0.2503*A117;
+LamMS517 = 0.2503*A317;
+XXR7 = XX7 - YY7;
+MR6 = M6 + M7;
+XXR6 = 0.06265009*M7 + 0.5006*MZ7 + XX6 - YY6 + YY7*(A117**2 + A317**2);
+ZZR6 = 0.06265009*M7 + 0.5006*MZ7 + YY7*(A117**2 + A317**2) + ZZ6;
+MYR6 = -0.2503*M7 + MY6 - MZ7;
+LamMS215 = 0.366*A115;
+LamMS515 = 0.366*A315;
+MR5 = M5 + MR6;
+XXR5 = XX5 - YY5 + YY6*(A116**2 + A316**2);
+ZZR5 = YY6*(A116**2 + A316**2) + ZZ5;
+MYR5 = MY5 + MZ6;
+MR4 = M4 + MR5;
+XXR4 = 0.133956*MR5 + 0.732*MZ5 + XX4 - YY4 + YY5*(A115**2 + A315**2);
+ZZR4 = 0.133956*MR5 + 0.732*MZ5 + YY5*(A115**2 + A315**2) + ZZ4;
+MYR4 = -0.366*MR5 + MY4 - MZ5;
+LamMS213 = 0.394*A113;
+LamMS513 = 0.394*A313;
+MR3 = M3 + MR4;
+XXR3 = XX3 - YY3 + YY4*(A114**2 + A314**2);
+ZZR3 = YY4*(A114**2 + A314**2) + ZZ3;
+MYR3 = MY3 + MZ4;
+MR2 = M2 + MR3;
+XXR2 = 0.155236*MR3 + 0.788*MZ3 + XX2 - YY2 + YY3*(A113**2 + A313**2);
+ZZR2 = 0.155236*MR3 + 0.788*MZ3 + YY3*(A113**2 + A313**2) + ZZ2;
+MYR2 = -0.394*MR3 + MY2 - MZ3;
+LamMS311 = -0.3415*A111;
+LamMS511 = -0.3415*A211;
+MR1 = M1 + MR2;
+ZZR1 = YY2*(A112**2 + A312**2) + ZZ1;
+*=*
+
+Grouped inertial parameters
+
+Geometric parameters
+j       ant     sigma   mu      gamma   b       alpha   d       theta   r       
+1       0       0       1       0       0       0       0       theta(1)0.341500000000000
+2       1       0       1       0       0       -pi/2   0       theta(2)0       
+3       2       0       1       0       0       pi/2    0       theta(3)0.394000000000000
+4       3       0       1       0       0       -pi/2   0       theta(4)0       
+5       4       0       1       0       0       pi/2    0       theta(5)0.366000000000000
+6       5       0       1       0       0       -pi/2   0       theta(6)0       
+7       6       0       1       0       0       pi/2    0       theta(7)0.250300000000000
+
+Dynamic inertia parameters
+j       XX      XY      XZ      YY      YZ      ZZ      MX      MY      MZ      M       IA      
+1       0       0       0       0       0       ZZR1    0       0       0       0       0       
+2       XXR2    XY2     XZ2     0       YZ2     ZZR2    MX2     MYR2    0       0       0       
+3       XXR3    XY3     XZ3     0       YZ3     ZZR3    MX3     MYR3    0       0       0       
+4       XXR4    XY4     XZ4     0       YZ4     ZZR4    MX4     MYR4    0       0       0       
+5       XXR5    XY5     XZ5     0       YZ5     ZZR5    MX5     MYR5    0       0       0       
+6       XXR6    XY6     XZ6     0       YZ6     ZZR6    MX6     MYR6    0       0       0       
+7       XXR7    XY7     XZ7     0       YZ7     ZZ7     MX7     MY7     0       0       0       
+
+*=*
