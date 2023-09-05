@@ -80,33 +80,3 @@ for k = 0:N
         beq(22:42, :) = beq_;
     end
 end
-
-% n1component = [1, 0, 1/2, 0, 1/3, 0, 1/4, 0, 1/5, 0, 0];
-% n2component = [0, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0];
-% n3component = [1, 0, 2, 0, 3, 0, 4, 0, 5, 0, 0];
-% Aeq(42 + 1, :) = [n1component n1component n1component n1component n1component n1component n1component];
-% Aeq(42 + 2, :) = [n2component n2component n2component n2component n2component n2component n2component];
-% Aeq(42 + 3, :) = [n3component n3component n3component n3component n3component n3component n3component];
-end
-
-% A_ = [qs, o11, o11, o11, o11, o11, o11;
-%       o11, qs, o11, o11, o11, o11, o11;
-%       o11, o11, qs, o11, o11, o11, o11;
-%       o11, o11, o11, qs, o11, o11, o11;
-%       o11, o11, o11, o11, qs, o11, o11;
-%       o11, o11, o11, o11, o11, qs, o11;
-%       o11, o11, o11, o11, o11, o11, qs;
-%       qds, o11, o11, o11, o11, o11, o11;
-%       o11, qds, o11, o11, o11, o11, o11;
-%       o11, o11, qds, o11, o11, o11, o11;
-%       o11, o11, o11, qds, o11, o11, o11;
-%       o11, o11, o11, o11, qds, o11, o11;
-%       o11, o11, o11, o11, o11, qds, o11;
-%       o11, o11, o11, o11, o11, o11, qds; 
-%       qdds, o11, o11, o11, o11, o11, o11;
-%       o11, qdds, o11, o11, o11, o11, o11;
-%       o11, o11, qdds, o11, o11, o11, o11;
-%       o11, o11, o11, qdds, o11, o11, o11;
-%       o11, o11, o11, o11, qdds, o11, o11;
-%       o11, o11, o11, o11, o11, qdds, o11;
-%       o11, o11, o11, o11, o11, o11, qdds];
