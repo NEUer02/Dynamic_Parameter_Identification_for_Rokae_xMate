@@ -6,7 +6,7 @@ ww = evalin('base', 'ww');
 gamma = evalin('base', 'gamma');
 
 %% 参数解包
-m1 = parameters(1); m2 = parameters(2); m3 = parameters(3); m4 = parameters(4); m5 = parameters(5); m6 = parameters(6); m7 = parameters(7);
+m1 = parameters(1);   m2 = parameters(2);   m3 = parameters(3);   m4 = parameters(4);   m5 = parameters(5);   m6 = parameters(6);   m7 = parameters(7);
 MX1 = parameters(8);  MX2 = parameters(9);  MX3 = parameters(10); MX4 = parameters(11); MX5 = parameters(12); MX6 = parameters(13); MX7 = parameters(14);
 MY1 = parameters(15); MY2 = parameters(16); MY3 = parameters(17); MY4 = parameters(18); MY5 = parameters(19); MY6 = parameters(20); MY7 = parameters(21);  
 MZ1 = parameters(22); MZ2 = parameters(23); MZ3 = parameters(24); MZ4 = parameters(25); MZ5 = parameters(26); MZ6 = parameters(27); MZ7 = parameters(28);
@@ -25,6 +25,10 @@ fc5 = parameters(108); fs5 = parameters(109); vs5 = parameters(110); fv5 = param
 fc6 = parameters(112); fs6 = parameters(113); vs6 = parameters(114); fv6 = parameters(115);
 fc7 = parameters(116); fs7 = parameters(117); vs7 = parameters(118); fv7 = parameters(119);
 
+fc = [fc1, fc2, fc3, fc4, fc5, fc6, fc7];
+fs = [fs1, fs2, fs3, fs4, fs5, fs6, fs7];
+vs = [vs1, vs2, vs3, vs4, vs5, vs6, vs7];
+fv = [fv1, fv2, fv3, fv4, fv5, fv6, fv7];
 %% 物理参数集和最小参数集之间的转换
 % XXi
 XX2 = I2xx + m2 * (lc2y^2 + lc2z^2);
@@ -115,13 +119,17 @@ for k = 1 : n_sample
     start_row = 1 + (k - 1) * 7;
     qd = qd_filt(k, :);
 
-    friction(start_row,     1) = sign(qd(1)) * (fc1 + (fs1 - fc1) * exp(-1 * abs(qd(1) / vs1) * gamma)) + fv1 * qd(1);
-    friction(start_row + 1, 1) = sign(qd(2)) * (fc2 + (fs2 - fc2) * exp(-1 * abs(qd(2) / vs2) * gamma)) + fv2 * qd(2);
-    friction(start_row + 2, 1) = sign(qd(3)) * (fc3 + (fs3 - fc3) * exp(-1 * abs(qd(3) / vs3) * gamma)) + fv3 * qd(3);
-    friction(start_row + 3, 1) = sign(qd(4)) * (fc4 + (fs4 - fc4) * exp(-1 * abs(qd(4) / vs4) * gamma)) + fv4 * qd(4);
-    friction(start_row + 4, 1) = sign(qd(5)) * (fc5 + (fs5 - fc5) * exp(-1 * abs(qd(5) / vs5) * gamma)) + fv5 * qd(5);
-    friction(start_row + 5, 1) = sign(qd(6)) * (fc6 + (fs6 - fc6) * exp(-1 * abs(qd(6) / vs6) * gamma)) + fv6 * qd(6);
-    friction(start_row + 6, 1) = sign(qd(7)) * (fc7 + (fs7 - fc7) * exp(-1 * abs(qd(7) / vs7) * gamma)) + fv7 * qd(7);
+    for i = 1 : 7
+        friction(start_row + (i - 1), 1) = sign(qd(i)) * (fc(i) + (fs(i) - fc(i)) * exp(-1 * abs(qd(i) / vs(i)) ^ gamma)) + fv(i) * qd(i);
+    end
+    
+    % friction(start_row,     1) = sign(qd(1)) * (fc1 + (fs1 - fc1) * exp(-1 * (qd(1) / vs1) ^ gamma)) + fv1 * qd(1);
+    % friction(start_row + 1, 1) = sign(qd(2)) * (fc2 + (fs2 - fc2) * exp(-1 * (qd(2) / vs2) ^ gamma)) + fv2 * qd(2);
+    % friction(start_row + 2, 1) = sign(qd(3)) * (fc3 + (fs3 - fc3) * exp(-1 * (qd(3) / vs3) ^ gamma)) + fv3 * qd(3);
+    % friction(start_row + 3, 1) = sign(qd(4)) * (fc4 + (fs4 - fc4) * exp(-1 * (qd(4) / vs4) ^ gamma)) + fv4 * qd(4);
+    % friction(start_row + 4, 1) = sign(qd(5)) * (fc5 + (fs5 - fc5) * exp(-1 * (qd(5) / vs5) ^ gamma)) + fv5 * qd(5);
+    % friction(start_row + 5, 1) = sign(qd(6)) * (fc6 + (fs6 - fc6) * exp(-1 * (qd(6) / vs6) ^ gamma)) + fv6 * qd(6);
+    % friction(start_row + 6, 1) = sign(qd(7)) * (fc7 + (fs7 - fc7) * exp(-1 * (qd(7) / vs7) ^ gamma)) + fv7 * qd(7);
 end
 T_idy = ww * base_inertial_parameters' + friction;
 T_idy = reshape(T_idy, 7, []);
