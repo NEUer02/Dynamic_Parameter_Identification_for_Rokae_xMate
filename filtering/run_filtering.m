@@ -6,11 +6,11 @@ clear, clc, close all;
 % order of filter
 n = 5;
 % sampling frequency 
-ws = 10;
+ws = 100;
 % cut-off frequency
 wc = 3;
 % number of sampling points
-pnt = 200;
+pnt = 2000;
 
 %% REMEMBER MANUALLY:
 % modify FILE PATH to read sensor data
@@ -25,6 +25,10 @@ t_raw = load('.\data\excit\excit_torque_record.txt');
 q_raw = load('.\data\excit\excit_ang_record.txt');
 qd_raw = load('.\data\excit\excit_vel_record.txt');
 qdd_raw = load('.\data\excit\excit_acc_record.txt');
+% t_raw = load('.\data\verify_data_from_ea\torque_record.txt');
+% q_raw = load('.\data\verify_data_from_ea\q_record.txt');
+% qd_raw = load('.\data\verify_data_from_ea\dq_record.txt');
+% qdd_raw = load('.\data\verify_data_from_ea\ddq_record.txt');
 
 % downsampling
 [q_ds, qd_ds, qdd_ds, t_ds] = downsampling(q_raw, qd_raw, qdd_raw, t_raw, pnt);
@@ -52,6 +56,6 @@ t_filt = trq_filter(n, ws, wc, t_ds, '.\figs\excit\trq\');
 % modify FILE PATH to save mat data
 
 clear n pnts;
-save('.\data\excit\excit_filtering.mat')
-save('..\identify\data\excit_filtering.mat');
-save('..\dynamics\data\mat\excit_filtering.mat');
+save('.\data\verify_data_from_ea\filtering_data_from_ea.mat');
+save('..\identify\data\filtering_data_from_ea.mat');
+save('..\dynamics\data\mat\filtering_data_from_ea.mat');

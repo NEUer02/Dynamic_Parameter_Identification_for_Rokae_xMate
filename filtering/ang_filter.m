@@ -12,17 +12,19 @@ wn = wc / (ws / 2);
 % low-pass filter
 [b, a] = butter(n, wn, 'low');
 % zero-phase digital filtering
-q_filt = filtfilt(b, a, q_raw); 
+q_filt = filtfilt(b, a, q_raw);
 
 %% VISUALIZATION
 for i = 1:7
-	figure(i);
-	plot(q_raw(:, i), 'g', 'LineWidth', 1.0); hold on;
-	plot(q_filt(:, i), 'r', 'LineWidth', 0.5); hold off;
-	title(['第', num2str(i), '关节位置滤波结果'], 'FontSize', 17, 'FontName', '宋体');
-	ylabel('关节角度(rad)', 'FontSize', 17, 'FontName', '宋体');
-	legend('滤波前', '滤波后', 'FontName', '宋体', 'FontSize', 12);
-    print(i, '-dpng', '-r600', [path_prefix, 'Joint', num2str(i), 'Rad.png']);
+    figure;
+    plot(q_raw(:, i), 'g', 'LineWidth', 1.0); hold on;
+    plot(q_filt(:, i), 'r', 'LineWidth', 0.5); hold off;
+    title(['第', num2str(i), '关节位置滤波结果'], 'FontSize', 17, 'FontName', '宋体');
+    ylabel('关节角度(rad)', 'FontSize', 17, 'FontName', '宋体');
+    legend('滤波前', '滤波后', 'FontName', '宋体', 'FontSize', 12);
+    set(gcf, 'Position', [-1650 500 4200 800])
+    ax = gca;
+    exportgraphics(ax, [path_prefix, 'Joint', num2str(i), 'Rad.png'], "Resolution", 600);
 end
 
 end

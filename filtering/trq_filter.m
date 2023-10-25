@@ -16,6 +16,10 @@ t_filt = filtfilt(b, a, t_raw);
 % t_filt = smooth(t_raw, 6, 'rloess');
 % t_filt = smooth(t_filt, 6, 'rloess');
 
+% for i = 1 : 7
+%     t_filt(:, i) = smooth(t_filt(:, i), 300, 'rloess');
+% end
+
 %% VISUALIZATION
 for i = 1:7
 	figure(i + 21); 
@@ -24,7 +28,10 @@ for i = 1:7
 	title(['第', num2str(i), '关节力矩滤波结果'], 'FontSize', 17, 'FontName', '宋体');
 	ylabel('关节力矩(Nm)', 'FontSize', 17, 'FontName', '宋体');
 	legend('滤波前', '滤波后', 'FontSize', 12, 'FontName', '宋体');
-    print(i + 21, '-dpng', '-r600', [path_prefix, 'Joint', num2str(i), 'Torque.png']);
+
+    set(gcf, 'Position', [-1650 500 4200 800])
+    ax = gca;
+    exportgraphics(ax, [path_prefix, 'Joint', num2str(i), 'Torque.png'], "Resolution", 600);
 end
 
 end
