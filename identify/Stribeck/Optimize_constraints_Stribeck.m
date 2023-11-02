@@ -1,4 +1,8 @@
 function [c, ceq] = Optimize_constraints_Stribeck(parameters)
+% 物理约束参考文献：
+% Parameter Identification of the KUKA LBR iiwa Robot Including
+% Constrainsts on Physical Feasibility
+% 文章链接：https://www.sciencedirect.com/science/article/pii/S2405896317317147
 
 m1 = parameters(1); m2 = parameters(2); m3 = parameters(3); m4 = parameters(4); m5 = parameters(5); m6 = parameters(6); m7 = parameters(7);
 I1xx = parameters(29); I1xy = parameters(30); I1xz = parameters(31); I1yy = parameters(32); I1yz = parameters(33); I1zz = parameters(34);
@@ -8,6 +12,9 @@ I4xx = parameters(56); I4xy = parameters(57); I4xz = parameters(58); I4yy = para
 I5xx = parameters(65); I5xy = parameters(66); I5xz = parameters(67); I5yy = parameters(68); I5yz = parameters(69); I5zz = parameters(70);
 I6xx = parameters(74); I6xy = parameters(75); I6xz = parameters(76); I6yy = parameters(77); I6yz = parameters(78); I6zz = parameters(79);
 I7xx = parameters(83); I7xy = parameters(84); I7xz = parameters(85); I7yy = parameters(86); I7yz = parameters(87); I7zz = parameters(88);
+fv1 = parameters(95); fv2 = parameters(99); fv3 = parameters(103); fv4 = parameters(107); fv5 = parameters(111); fv6 = parameters(115); fv7 = parameters(119);
+fc1 = parameters(92); fc2 = parameters(96); fc3 = parameters(100); fc4 = parameters(104); fc5 = parameters(108); fc6 = parameters(112); fc7 = parameters(116); 
+fs1 = parameters(93); fs2 = parameters(97);fs3 = parameters(101);fs4 = parameters(105);fs5 = parameters(109); fs6 = parameters(113); fs7 = parameters(117);
 
 mi = [m1, m2, m3, m4, m5, m6, m7]';
 
@@ -28,6 +35,10 @@ D7 = eig(I7);
 
 matrix_eig = [D1; D2; D3; D4; D5; D6; D7];
 
+fv = [fv1 fv2 fv3 fv4 fv5 fv6 fv7]';
+fc = [fc1 fc2 fc3 fc4 fc5 fc6 fc7]';
+fs = [fs1 fs2 fs3 fs4 fs5 fs6 fs7]';
+
 physical_constraints1 = [[I1zz I1yy I1xx]' - [I1xx + I1yy, I1xx + I1zz, I1yy + I1zz]';
                          [I2zz I2yy I2xx]' - [I2xx + I2yy, I2xx + I2zz, I2yy + I2zz]';
                          [I3zz I3yy I3xx]' - [I3xx + I3yy, I3xx + I3zz, I3yy + I3zz]';
@@ -46,8 +57,8 @@ physical_constraints3 = [3 * [I1zz I2yy]' - [min([I1xx I1yy]) min([I2xx, I2zz])]
                          3 * [I1zz I4yy]' - [min([I1xx I1yy]) min([I4xx, I4zz])]';
                          3 * [I3zz I2yy]' - [min([I3xx I3yy]) min([I2xx, I2zz])]';
                          3 * [I3zz I4yy]' - [min([I3xx I3yy]) min([I4xx, I4zz])]';
-                         3 * [I5zz I2yy]' - [min([I5xx I1yy]) min([I2xx, I2zz])]';
-                         3 * [I5zz I4yy]' - [min([I5xx I1yy]) min([I4xx, I4zz])]'];
+                         3 * [I5zz I2yy]' - [min([I5xx I5yy]) min([I2xx, I2zz])]';
+                         3 * [I5zz I4yy]' - [min([I5xx I5yy]) min([I4xx, I4zz])]'];
 physical_constraints4 = [max([abs(I1xy) abs(I1xz) abs(I1yz)]) - 0.1 * min([I1xx I1yy I1zz]);
                          max([abs(I2xy) abs(I2xz) abs(I2yz)]) - 0.1 * min([I2xx I2yy I2zz]);
                          max([abs(I3xy) abs(I3xz) abs(I3yz)]) - 0.1 * min([I3xx I3yy I3zz]);
@@ -63,6 +74,10 @@ physical_constraints5 = [[1e-4 1e-4 1e-4]' - [I1xx I1yy I1zz]';
                          [1e-4 1e-4 1e-4]' - [I6xx I6yy I6zz]';
                          [1e-4 1e-4 1e-4]' - [I7xx I7yy I7zz]'];
 
-c = [-mi; -matrix_eig; physical_constraints1; physical_constraints2; physical_constraints3; physical_constraints4; physical_constraints5];
+physical_constraints6 = 0.1 -fv;
+physical_constraints7 = -fc;
+physical_constraints8 = -fs;
+
+c = [-mi; -matrix_eig; physical_constraints1; physical_constraints2; physical_constraints3; physical_constraints4; physical_constraints5; physical_constraints6; physical_constraints7; physical_constraints8];
 ceq = zeros(size(c));
 end

@@ -16,13 +16,13 @@ t_filt = filtfilt(b, a, t_raw);
 % t_filt = smooth(t_raw, 6, 'rloess');
 % t_filt = smooth(t_filt, 6, 'rloess');
 
-% for i = 1 : 7
-%     t_filt(:, i) = smooth(t_filt(:, i), 300, 'rloess');
-% end
+for i = 1 : 6
+    t_filt(:, i) = smooth(t_filt(:, i), 300);
+end
+t_filt(:, 7) = smooth(t_filt(:, 7), 50);
 
 %% VISUALIZATION
 for i = 1:7
-	figure(i + 21); 
 	plot(t_raw(:, i), 'g', 'LineWidth', 1.0); hold on;
 	plot(t_filt(:, i), 'r', 'LineWidth', 0.5); hold off;
 	title(['第', num2str(i), '关节力矩滤波结果'], 'FontSize', 17, 'FontName', '宋体');
