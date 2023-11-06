@@ -12,9 +12,18 @@ I4xx = parameters(56); I4xy = parameters(57); I4xz = parameters(58); I4yy = para
 I5xx = parameters(65); I5xy = parameters(66); I5xz = parameters(67); I5yy = parameters(68); I5yz = parameters(69); I5zz = parameters(70);
 I6xx = parameters(74); I6xy = parameters(75); I6xz = parameters(76); I6yy = parameters(77); I6yz = parameters(78); I6zz = parameters(79);
 I7xx = parameters(83); I7xy = parameters(84); I7xz = parameters(85); I7yy = parameters(86); I7yz = parameters(87); I7zz = parameters(88);
-fv1 = parameters(95); fv2 = parameters(99); fv3 = parameters(103); fv4 = parameters(107); fv5 = parameters(111); fv6 = parameters(115); fv7 = parameters(119);
-fc1 = parameters(92); fc2 = parameters(96); fc3 = parameters(100); fc4 = parameters(104); fc5 = parameters(108); fc6 = parameters(112); fc7 = parameters(116); 
-fs1 = parameters(93); fs2 = parameters(97);fs3 = parameters(101);fs4 = parameters(105);fs5 = parameters(109); fs6 = parameters(113); fs7 = parameters(117);
+fc1 = parameters(92); fs1 = parameters(93); vs1 = parameters(94); fv1 = parameters(95);
+fc2 = parameters(96); fs2 = parameters(97); vs2 = parameters(98); fv2 = parameters(99);
+fc3 = parameters(100); fs3 = parameters(101); vs3 = parameters(102); fv3 = parameters(103);
+fc4 = parameters(104); fs4 = parameters(105); vs4 = parameters(106); fv4 = parameters(107);
+fc5 = parameters(108); fs5 = parameters(109); vs5 = parameters(110); fv5 = parameters(111);
+fc6 = parameters(112); fs6 = parameters(113); vs6 = parameters(114); fv6 = parameters(115);
+fc7 = parameters(116); fs7 = parameters(117); vs7 = parameters(118); fv7 = parameters(119);
+
+fc = [fc1 fc2 fc3 fc4 fc5 fc6 fc7]';
+fs = [fs1 fs2 fs3 fs4 fs5 fs6 fs7]';
+fv = [fv1 fv2 fv3 fv4 fv5 fv6 fv7]';
+vs = [vs1 vs2 vs3 vs4 vs5 vs6 vs7]';
 
 mi = [m1, m2, m3, m4, m5, m6, m7]';
 
@@ -34,10 +43,6 @@ I7 = [I7xx I7xy I7xz; I7xy I7yy I7yz; I7xz I7yz I7zz];
 D7 = eig(I7);
 
 matrix_eig = [D1; D2; D3; D4; D5; D6; D7];
-
-fv = [fv1 fv2 fv3 fv4 fv5 fv6 fv7]';
-fc = [fc1 fc2 fc3 fc4 fc5 fc6 fc7]';
-fs = [fs1 fs2 fs3 fs4 fs5 fs6 fs7]';
 
 physical_constraints1 = [[I1zz I1yy I1xx]' - [I1xx + I1yy, I1xx + I1zz, I1yy + I1zz]';
                          [I2zz I2yy I2xx]' - [I2xx + I2yy, I2xx + I2zz, I2yy + I2zz]';
@@ -73,10 +78,10 @@ physical_constraints5 = [[1e-4 1e-4 1e-4]' - [I1xx I1yy I1zz]';
                          [1e-4 1e-4 1e-4]' - [I5xx I5yy I5zz]';
                          [1e-4 1e-4 1e-4]' - [I6xx I6yy I6zz]';
                          [1e-4 1e-4 1e-4]' - [I7xx I7yy I7zz]'];
+physical_constraints6 = -fc;
+physical_constraints7 = -fs;
+physical_constraints8 = 0.1 - fv;
 
-physical_constraints6 = 0.1 -fv;
-physical_constraints7 = -fc;
-physical_constraints8 = -fs;
 
 c = [-mi; -matrix_eig; physical_constraints1; physical_constraints2; physical_constraints3; physical_constraints4; physical_constraints5; physical_constraints6; physical_constraints7; physical_constraints8];
 ceq = zeros(size(c));
