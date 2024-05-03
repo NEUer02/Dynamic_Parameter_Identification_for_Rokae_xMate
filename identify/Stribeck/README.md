@@ -1,9 +1,9 @@
-# README_Stribeck
+# 关于Stribeck辨识算法的说明
 
-## 辨识部分
-标准Stribeck模型的辨识：运行identify_dynamic_parameters_with_Stribeck_traditional.mlx（存在位置问题导致优化错误）
-改进Stribeck模型的辨识：运行identify_dynamic_parameters_with_Stribeck_promote.mlx
+identify_dynamic_parameters_with_Stribeck.mlx文件中实现了内点法、遗传算法和模拟退火算法三种。
 
-## 验证部分+可视化部分
-标准Stribeck模型的验证+可视化：运行verify_parameters_Stribeck_traditional.mlx
-改进Stribeck模型的验证+可视化：运行verify_parameters_promote.mlx
+经过本人实测，内点法由于其余两种算法，且可以添加约束，故优先选择。
+
+其余两种算法的代码以注释的形式给出。
+
+n_parameters参数如果等于105，则使用带偏置的Stribeck摩擦力模型。如果该参数的值非105，则使用标准的Stribeck摩擦力模型，但请注意使该参数的值不要小于98。

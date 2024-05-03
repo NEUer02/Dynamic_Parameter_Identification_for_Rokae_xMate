@@ -1,4 +1,4 @@
-function [output] = Optimal_object_Stribeck_v3(parameters)
+function [output] = Optimal_object_Stribeck(parameters)
 %% 准备工作与参数加载
 t_filt = evalin('base', 't_filt');
 qd_filt = evalin('base', 'qd_filt');
