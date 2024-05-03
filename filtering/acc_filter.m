@@ -29,7 +29,10 @@ elseif mode == "sensor"
 	qdd_pre_filt = input;  % input is qd_raw
 end
 qdd_filt = filtfilt(b, a, qdd_pre_filt);
-% qdd_filt = smooth(qdd_pre_filt, 'rloess');
+for i = 1 : 7
+    qdd_filt(:, i) = smooth(qdd_filt(:, i), 200);
+end
+qdd_filt = reshape(qdd_filt, 20001, 7);
 
 %% VISUALIZATION
 for i = 1:7
@@ -42,7 +45,7 @@ for i = 1:7
 
     set(gcf, 'Position', [-1650 500 4200 800]);
     ax = gca;
-    exportgraphics(ax, [path_prefix, 'Joint', num2str(i), 'Acc.png'], "Resolution", 600);
+    exportgraphics(ax, [path_prefix, 'Joint', num2str(i), 'Acc.png'], "Resolution", 100);
 end
 
 end

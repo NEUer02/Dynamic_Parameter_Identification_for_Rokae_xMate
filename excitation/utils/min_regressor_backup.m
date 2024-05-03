@@ -1,4 +1,4 @@
-function w_min = min_regressor(q, dq, ddq)
+function w_min = min_regressor_backup(q, dq, ddq)
 
 %% PARAMETERS
 % force/torque acting on ee

@@ -21,7 +21,7 @@ traj_order = 5;
 % number of revolute joints
 dof = 7;
 % minimal param set
-pnum_min = 70;
+pnum_min = 57;
 
 %% CONSTRAINTS
 [A, b, Aeq, beq] = optimize_traj_constraints_mat(traj_wf, traj_Ts, traj_n);

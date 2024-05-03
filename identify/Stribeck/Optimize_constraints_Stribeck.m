@@ -4,21 +4,21 @@ function [c, ceq] = Optimize_constraints_Stribeck(parameters)
 % Constrainsts on Physical Feasibility
 % 文章链接：https://www.sciencedirect.com/science/article/pii/S2405896317317147
 
-m1 = parameters(1); m2 = parameters(2); m3 = parameters(3); m4 = parameters(4); m5 = parameters(5); m6 = parameters(6); m7 = parameters(7);
-I1xx = parameters(29); I1xy = parameters(30); I1xz = parameters(31); I1yy = parameters(32); I1yz = parameters(33); I1zz = parameters(34);
-I2xx = parameters(38); I2xy = parameters(39); I2xz = parameters(40); I2yy = parameters(41); I2yz = parameters(42); I2zz = parameters(43);
-I3xx = parameters(47); I3xy = parameters(48); I3xz = parameters(49); I3yy = parameters(50); I3yz = parameters(51); I3zz = parameters(52);
-I4xx = parameters(56); I4xy = parameters(57); I4xz = parameters(58); I4yy = parameters(59); I4yz = parameters(60); I4zz = parameters(61);
-I5xx = parameters(65); I5xy = parameters(66); I5xz = parameters(67); I5yy = parameters(68); I5yz = parameters(69); I5zz = parameters(70);
-I6xx = parameters(74); I6xy = parameters(75); I6xz = parameters(76); I6yy = parameters(77); I6yz = parameters(78); I6zz = parameters(79);
-I7xx = parameters(83); I7xy = parameters(84); I7xz = parameters(85); I7yy = parameters(86); I7yz = parameters(87); I7zz = parameters(88);
-fc1 = parameters(92); fs1 = parameters(93); vs1 = parameters(94); fv1 = parameters(95);
-fc2 = parameters(96); fs2 = parameters(97); vs2 = parameters(98); fv2 = parameters(99);
-fc3 = parameters(100); fs3 = parameters(101); vs3 = parameters(102); fv3 = parameters(103);
-fc4 = parameters(104); fs4 = parameters(105); vs4 = parameters(106); fv4 = parameters(107);
-fc5 = parameters(108); fs5 = parameters(109); vs5 = parameters(110); fv5 = parameters(111);
-fc6 = parameters(112); fs6 = parameters(113); vs6 = parameters(114); fv6 = parameters(115);
-fc7 = parameters(116); fs7 = parameters(117); vs7 = parameters(118); fv7 = parameters(119);
+m1 = parameters(1);   m2 = parameters(2);   m3 = parameters(3);   m4 = parameters(4);   m5 = parameters(5);   m6 = parameters(6);   m7 = parameters(7);
+I1xx = parameters(8); I1xy = parameters(9); I1xz = parameters(10); I1yy = parameters(11); I1yz = parameters(12); I1zz = parameters(13); lc1x = parameters(14); lc1y = parameters(15); lc1z = parameters(16);
+I2xx = parameters(17); I2xy = parameters(18); I2xz = parameters(19); I2yy = parameters(20); I2yz = parameters(21); I2zz = parameters(22); lc2x = parameters(23); lc2y = parameters(24); lc2z = parameters(25);
+I3xx = parameters(26); I3xy = parameters(27); I3xz = parameters(28); I3yy = parameters(29); I3yz = parameters(30); I3zz = parameters(31); lc3x = parameters(32); lc3y = parameters(33); lc3z = parameters(34);
+I4xx = parameters(35); I4xy = parameters(36); I4xz = parameters(37); I4yy = parameters(38); I4yz = parameters(39); I4zz = parameters(40); lc4x = parameters(41); lc4y = parameters(42); lc4z = parameters(43);
+I5xx = parameters(44); I5xy = parameters(45); I5xz = parameters(46); I5yy = parameters(47); I5yz = parameters(48); I5zz = parameters(49); lc5x = parameters(50); lc5y = parameters(51); lc5z = parameters(52);
+I6xx = parameters(53); I6xy = parameters(54); I6xz = parameters(55); I6yy = parameters(56); I6yz = parameters(57); I6zz = parameters(58); lc6x = parameters(59); lc6y = parameters(60); lc6z = parameters(61);
+I7xx = parameters(62); I7xy = parameters(63); I7xz = parameters(64); I7yy = parameters(65); I7yz = parameters(66); I7zz = parameters(67); lc7x = parameters(68); lc7y = parameters(69); lc7z = parameters(70);
+fc1 = parameters(71); fs1 = parameters(72); vs1 = parameters(73); fv1 = parameters(74);
+fc2 = parameters(75); fs2 = parameters(76); vs2 = parameters(77); fv2 = parameters(78);
+fc3 = parameters(79); fs3 = parameters(80); vs3 = parameters(81); fv3 = parameters(82);
+fc4 = parameters(83); fs4 = parameters(84); vs4 = parameters(85); fv4 = parameters(86);
+fc5 = parameters(87); fs5 = parameters(88); vs5 = parameters(89); fv5 = parameters(90);
+fc6 = parameters(91); fs6 = parameters(92); vs6 = parameters(93); fv6 = parameters(94);
+fc7 = parameters(95); fs7 = parameters(96); vs7 = parameters(97); fv7 = parameters(98);
 
 fc = [fc1 fc2 fc3 fc4 fc5 fc6 fc7]';
 fs = [fs1 fs2 fs3 fs4 fs5 fs6 fs7]';
@@ -64,13 +64,13 @@ physical_constraints3 = [3 * [I1zz I2yy]' - [min([I1xx I1yy]) min([I2xx, I2zz])]
                          3 * [I3zz I4yy]' - [min([I3xx I3yy]) min([I4xx, I4zz])]';
                          3 * [I5zz I2yy]' - [min([I5xx I5yy]) min([I2xx, I2zz])]';
                          3 * [I5zz I4yy]' - [min([I5xx I5yy]) min([I4xx, I4zz])]'];
-physical_constraints4 = [max([abs(I1xy) abs(I1xz) abs(I1yz)]) - 0.1 * min([I1xx I1yy I1zz]);
-                         max([abs(I2xy) abs(I2xz) abs(I2yz)]) - 0.1 * min([I2xx I2yy I2zz]);
-                         max([abs(I3xy) abs(I3xz) abs(I3yz)]) - 0.1 * min([I3xx I3yy I3zz]);
-                         max([abs(I4xy) abs(I4xz) abs(I4yz)]) - 0.1 * min([I4xx I4yy I4zz]);
-                         max([abs(I5xy) abs(I5xz) abs(I5yz)]) - 0.1 * min([I5xx I5yy I5zz]);
-                         max([abs(I6xy) abs(I6xz) abs(I6yz)]) - 0.1 * min([I6xx I6yy I6zz]);
-                         max([abs(I7xy) abs(I7xz) abs(I7yz)]) - 0.1 * min([I7xx I7yy I7zz])];
+physical_constraints4 = [max([abs(I1xy) abs(I1xz) abs(I1yz)]) - 0.1 * abs(min([I1xx I1yy I1zz]));
+                         max([abs(I2xy) abs(I2xz) abs(I2yz)]) - 0.1 * abs(min([I2xx I2yy I2zz]));
+                         max([abs(I3xy) abs(I3xz) abs(I3yz)]) - 0.1 * abs(min([I3xx I3yy I3zz]));
+                         max([abs(I4xy) abs(I4xz) abs(I4yz)]) - 0.1 * abs(min([I4xx I4yy I4zz]));
+                         max([abs(I5xy) abs(I5xz) abs(I5yz)]) - 0.1 * abs(min([I5xx I5yy I5zz]));
+                         max([abs(I6xy) abs(I6xz) abs(I6yz)]) - 0.1 * abs(min([I6xx I6yy I6zz]));
+                         max([abs(I7xy) abs(I7xz) abs(I7yz)]) - 0.1 * abs(min([I7xx I7yy I7zz]))];
 physical_constraints5 = [[1e-4 1e-4 1e-4]' - [I1xx I1yy I1zz]';
                          [1e-4 1e-4 1e-4]' - [I2xx I2yy I2zz]';
                          [1e-4 1e-4 1e-4]' - [I3xx I3yy I3zz]';
@@ -80,7 +80,7 @@ physical_constraints5 = [[1e-4 1e-4 1e-4]' - [I1xx I1yy I1zz]';
                          [1e-4 1e-4 1e-4]' - [I7xx I7yy I7zz]'];
 physical_constraints6 = -fc;
 physical_constraints7 = -fs;
-physical_constraints8 = 0.1 - fv;
+physical_constraints8 = -fv;
 
 
 c = [-mi; -matrix_eig; physical_constraints1; physical_constraints2; physical_constraints3; physical_constraints4; physical_constraints5; physical_constraints6; physical_constraints7; physical_constraints8];

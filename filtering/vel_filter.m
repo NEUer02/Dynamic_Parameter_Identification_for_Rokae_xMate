@@ -14,6 +14,9 @@ wn = wc / (ws / 2);
 [b, a] = butter(n, wn, 'low');
 % sampling period
 Ts = 1 / ws;    
+traj_Ts = 0.001;
+[n_sample, ~] = size(input);
+t = linspace(0, n_sample - 1, n_sample) * traj_Ts;
 
 %% FILTERING
 if mode == "derivate"
@@ -34,15 +37,15 @@ qd_filt = filtfilt(b, a, qd_pre_filt);
 %% VISUALIZATION
 for i = 1:7
 	figure; 
-	plot(qd_pre_filt(:, i), 'g', 'LineWidth', 1.0); hold on;
-	plot(qd_filt(:, i), 'r', 'LineWidth', 0.5); hold off;
+	plot(t, qd_pre_filt(:, i), 'g', 'LineWidth', 1.0); hold on;
+	plot(t, qd_filt(:, i), 'r', 'LineWidth', 0.5); hold off;
 	title(['第', num2str(i), '关节速度滤波结果'], 'FontSize', 17, 'FontName', '宋体');
 	ylabel('关节速度(rad/s)', 'FontSize', 17, 'FontName', '宋体');
 	legend('滤波前', '滤波后', 'FontSize', 12, 'FontName', '宋体');
 
     set(gcf, 'Position', [-1650 500 4200 800])
     ax = gca;
-    exportgraphics(ax, [path_prefix, 'Joint', num2str(i), 'Vel.png'], "Resolution", 600);
+    exportgraphics(ax, [path_prefix, 'Joint', num2str(i), 'Vel.png'], "Resolution", 100);
 end
 
 end

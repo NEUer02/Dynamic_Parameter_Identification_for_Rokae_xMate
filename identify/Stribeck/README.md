@@ -1,0 +1,9 @@
+# README_Stribeck
+
+## 辨识部分
+标准Stribeck模型的辨识：运行identify_dynamic_parameters_with_Stribeck_traditional.mlx（存在位置问题导致优化错误）
+改进Stribeck模型的辨识：运行identify_dynamic_parameters_with_Stribeck_promote.mlx
+
+## 验证部分+可视化部分
+标准Stribeck模型的验证+可视化：运行verify_parameters_Stribeck_traditional.mlx
+改进Stribeck模型的验证+可视化：运行verify_parameters_promote.mlx

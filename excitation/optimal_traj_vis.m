@@ -59,6 +59,7 @@ t = linspace(0, traj_n, traj_n) * traj_Ts;
 figure(1); 
 set(gcf,'position',[0.1,0.1,0.9,0.9] );
 set(gcf,'unit','centimeters','position',[1,2,20,15]);
+subplot(2, 2, 1);
 plot(t, opt_q(:, 1), 'r', ...
      t, opt_q(:, 2), 'c', ...
 	 t, opt_q(:, 3), 'y', ...
@@ -66,13 +67,17 @@ plot(t, opt_q(:, 1), 'r', ...
 	 t, opt_q(:, 5), 'b', ...
 	 t, opt_q(:, 6), 'm', ...
      t, opt_q(:, 7), 'LineWidth', 1.0);
-title('激励轨迹关节角度曲线'); xlabel('时间(s)'); ylabel('角度(rad)');
-legend('关节1', '关节2', '关节3', '关节4', '关节5', '关节6', '关节7');
+% title('激励轨迹关节角度曲线'); 
+xlabel('time(s)'); ylabel('angle(rad)');
+legend('joint1', 'joint2', 'joint3', 'joint4', 'joint5', 'joint6', 'joint7');
 print -f1 -dpng -r600 figs\train\exJointRad.png
 % joint velocity: qd
-figure(2);
+% figure(2);
 set(gcf,'position',[0.1,0.1,0.9,0.9] );
 set(gcf,'unit','centimeters','position',[1,2,20,15]);
+set(gca, 'LooseInset', [0,0,0,0]);
+
+subplot(2, 2, 2);
 plot(t, opt_qd(:, 1), 'r', ...
      t, opt_qd(:, 2), 'c', ...
 	 t, opt_qd(:, 3), 'y', ...
@@ -80,13 +85,15 @@ plot(t, opt_qd(:, 1), 'r', ...
 	 t, opt_qd(:, 5), 'b', ...
 	 t, opt_qd(:, 6), 'm', ...
      t, opt_qd(:, 7), 'LineWidth', 1.0);
-title('激励轨迹关节角速度曲线'); xlabel('时间(s)'); ylabel('角速度(rad/s)');
-legend('关节1', '关节2', '关节3', '关节4', '关节5', '关节6', '关节7');
-print -f2 -dpng -r600 figs\train\exJointVel.png
+% title('激励轨迹关节角速度曲线'); 
+xlabel('time(s)'); ylabel('angular velocity(rad/s)');
+legend('joint1', 'joint2', 'joint3', 'joint4', 'joint5', 'joint6', 'joint7');
+% print -f2 -dpng -r600 figs\train\exJointVel.png
 % joint acceleration: qdd
-figure(3); 
+% figure(3); 
 set(gcf,'position',[0.1,0.1,0.9,0.9] );
 set(gcf,'unit','centimeters','position',[1,2,20,15]);
+subplot(2, 2, 3);
 plot(t, opt_qdd(:, 1), 'r', ...
      t, opt_qdd(:, 2), 'c', ...
 	 t, opt_qdd(:, 3), 'y', ...
@@ -94,9 +101,11 @@ plot(t, opt_qdd(:, 1), 'r', ...
 	 t, opt_qdd(:, 5), 'b', ...
 	 t, opt_qdd(:, 6), 'm', ...
      t, opt_qdd(:, 7), 'LineWidth', 1.0);
-title('激励轨迹关节角加速度曲线'); xlabel('时间(s)'); ylabel('角加速度(rad/s^2)');
-legend('关节1', '关节2', '关节3', '关节4', '关节5', '关节6', '关节7');
-print -f3 -dpng -r600 figs\train\exJointAcc.png
+% title('激励轨迹关节角加速度曲线'); 
+xlabel('time(s)'); ylabel('angular acceleration(rad/s^2)');
+legend('joint1', 'joint2', 'joint3', 'joint4', 'joint5', 'joint6', 'joint7');
+% print -f3 -dpng -r600 figs\train\exJointAcc.png
+set(gca, 'LooseInset', [0,0,0,0]);
 
 %% LOAD ROBOT MODEL
 LB = Link([0, 0, 0, 0], 'modified');   % fixed
@@ -122,12 +131,13 @@ xm3p_modDH.name = 'xMate3Pro-MDH';
 % xm3p_modDH.plot([0, -1.52789, -1.14866, -1.52789, -0.772772, -1.52789, -0.442311, -1.52789]); hold on;
 
 %% 3D POSTURE OF EXCITATION TRAJECTORY
+subplot(2, 2, 4);
 % for i = 1:traj_n
 % 	fkine = xm3p_modDH.fkine([0, opt_q(i, 1), opt_q(i, 2), opt_q(i, 3), opt_q(i, 4), ...
 % 							  opt_q(i, 5), opt_q(i, 6), opt_q(i, 7)]);
 %     T = double(fkine);
 %     trplot(T, 'rgb', 'length', 0.1, 'notext'); hold on;
-%     title('最优激励轨迹示意图'); 
+%     % title('最优激励轨迹示意图'); 
 %     xlabel('x/m'); ylabel('y/m'); zlabel('z/m');
 %     grid on;
 % end
@@ -152,7 +162,7 @@ for i = 1:traj_n
     zlim([0.05, 1.5]);
     xlim([-1, 1.5]);
     ylim([-1, 1.5]);
-    title('激励轨迹仿真示意图');
+    % title('激励轨迹仿真示意图');
     last_fpos = [fpos.t(1), fpos.t(2), fpos.t(3)];
 
     % Capture the plot as an image 
@@ -161,13 +171,13 @@ for i = 1:traj_n
     [I, map] = rgb2ind(I, 256);
 
     % Write to the GIF File 
-    if i == 1
-        imwrite(I, map, '.\figs\train\excit_traj_simulation.gif', 'gif', 'Loopcount', inf, 'DelayTime', 0.1);
-    else
-        imwrite(I, map, '.\figs\train\excit_traj_simulation.gif', 'gif', 'WriteMode', 'append', 'DelayTime', 0.1);
-    end
+    % if i == 1
+    %     imwrite(I, map, '.\figs\train\excit_traj_simulation.gif', 'gif', 'Loopcount', inf, 'DelayTime', 0.1);
+    % else
+    %     imwrite(I, map, '.\figs\train\excit_traj_simulation.gif', 'gif', 'WriteMode', 'append', 'DelayTime', 0.1);
+    % end
 end
-
+set(gca, 'LooseInset', [0,0,0,0]);
 %% REACHABLE SPACE
 % lim_max = [170 120 170 120 170 120 360];
 % lim_min = [-170 -120 -170 -120 -170 -120 -360];

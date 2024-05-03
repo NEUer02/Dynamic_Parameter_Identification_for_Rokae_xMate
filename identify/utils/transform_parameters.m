@@ -1,18 +1,42 @@
 function [base_inertial_parameters] = transform_parameters(parameters)
 %% 参数解包
 m1 = parameters(1);   m2 = parameters(2);   m3 = parameters(3);   m4 = parameters(4);   m5 = parameters(5);   m6 = parameters(6);   m7 = parameters(7);
-MX1 = parameters(8);  MX2 = parameters(9);  MX3 = parameters(10); MX4 = parameters(11); MX5 = parameters(12); MX6 = parameters(13); MX7 = parameters(14);
-MY1 = parameters(15); MY2 = parameters(16); MY3 = parameters(17); MY4 = parameters(18); MY5 = parameters(19); MY6 = parameters(20); MY7 = parameters(21);  
-MZ1 = parameters(22); MZ2 = parameters(23); MZ3 = parameters(24); MZ4 = parameters(25); MZ5 = parameters(26); MZ6 = parameters(27); MZ7 = parameters(28);
-I1xx = parameters(29); I1xy = parameters(30); I1xz = parameters(31); I1yy = parameters(32); I1yz = parameters(33); I1zz = parameters(34); lc1x = parameters(35); lc1y = parameters(36); lc1z = parameters(37);
-I2xx = parameters(38); I2xy = parameters(39); I2xz = parameters(40); I2yy = parameters(41); I2yz = parameters(42); I2zz = parameters(43); lc2x = parameters(44); lc2y = parameters(45); lc2z = parameters(46);
-I3xx = parameters(47); I3xy = parameters(48); I3xz = parameters(49); I3yy = parameters(50); I3yz = parameters(51); I3zz = parameters(52); lc3x = parameters(53); lc3y = parameters(54); lc3z = parameters(55);
-I4xx = parameters(56); I4xy = parameters(57); I4xz = parameters(58); I4yy = parameters(59); I4yz = parameters(60); I4zz = parameters(61); lc4x = parameters(62); lc4y = parameters(63); lc4z = parameters(64);
-I5xx = parameters(65); I5xy = parameters(66); I5xz = parameters(67); I5yy = parameters(68); I5yz = parameters(69); I5zz = parameters(70); lc5x = parameters(71); lc5y = parameters(72); lc5z = parameters(73);
-I6xx = parameters(74); I6xy = parameters(75); I6xz = parameters(76); I6yy = parameters(77); I6yz = parameters(78); I6zz = parameters(79); lc6x = parameters(80); lc6y = parameters(81); lc6z = parameters(82);
-I7xx = parameters(83); I7xy = parameters(84); I7xz = parameters(85); I7yy = parameters(86); I7yz = parameters(87); I7zz = parameters(88); lc7x = parameters(89); lc7y = parameters(90); lc7z = parameters(91);
+I1xx = parameters(8); I1xy = parameters(9); I1xz = parameters(10); I1yy = parameters(11); I1yz = parameters(12); I1zz = parameters(13); lc1x = parameters(14); lc1y = parameters(15); lc1z = parameters(16);
+I2xx = parameters(17); I2xy = parameters(18); I2xz = parameters(19); I2yy = parameters(20); I2yz = parameters(21); I2zz = parameters(22); lc2x = parameters(23); lc2y = parameters(24); lc2z = parameters(25);
+I3xx = parameters(26); I3xy = parameters(27); I3xz = parameters(28); I3yy = parameters(29); I3yz = parameters(30); I3zz = parameters(31); lc3x = parameters(32); lc3y = parameters(33); lc3z = parameters(34);
+I4xx = parameters(35); I4xy = parameters(36); I4xz = parameters(37); I4yy = parameters(38); I4yz = parameters(39); I4zz = parameters(40); lc4x = parameters(41); lc4y = parameters(42); lc4z = parameters(43);
+I5xx = parameters(44); I5xy = parameters(45); I5xz = parameters(46); I5yy = parameters(47); I5yz = parameters(48); I5zz = parameters(49); lc5x = parameters(50); lc5y = parameters(51); lc5z = parameters(52);
+I6xx = parameters(53); I6xy = parameters(54); I6xz = parameters(55); I6yy = parameters(56); I6yz = parameters(57); I6zz = parameters(58); lc6x = parameters(59); lc6y = parameters(60); lc6z = parameters(61);
+I7xx = parameters(62); I7xy = parameters(63); I7xz = parameters(64); I7yy = parameters(65); I7yz = parameters(66); I7zz = parameters(67); lc7x = parameters(68); lc7y = parameters(69); lc7z = parameters(70);
 
 %% 物理参数集和最小参数集之间的转换
+% MXi
+MX1 = m1 * lc1x;
+MX2 = m2 * lc2x;
+MX3 = m3 * lc3x;
+MX4 = m4 * lc4x;
+MX5 = m5 * lc5x;
+MX6 = m6 * lc6x;
+MX7 = m7 * lc7x;
+
+% MYi
+MY1 = m1 * lc1y;
+MY2 = m2 * lc2y;
+MY3 = m3 * lc3y;
+MY4 = m4 * lc4y;
+MY5 = m5 * lc5y;
+MY6 = m6 * lc6y;
+MY7 = m7 * lc7y;
+
+% MZi
+MZ1 = m1 * lc1z;
+MZ2 = m2 * lc2z;
+MZ3 = m3 * lc3z;
+MZ4 = m4 * lc4z;
+MZ5 = m5 * lc5z;
+MZ6 = m6 * lc6z;
+MZ7 = m7 * lc7z;
+
 % XXi
 XX2 = I2xx + m2 * (lc2y^2 + lc2z^2);
 XX3 = I3xx + m3 * (lc3y^2 + lc3z^2);

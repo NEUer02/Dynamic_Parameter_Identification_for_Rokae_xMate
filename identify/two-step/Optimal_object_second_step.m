@@ -5,6 +5,6 @@ gamma = evalin('base', 'gamma');
 
 friction = compute_Stribeck_friction(qd_filt_tmp, parameters, gamma);
 
-output = norm(error_for_friction_tmp - friction, 'inf');
+output = norm(error_for_friction_tmp - friction)^2;
 end
 

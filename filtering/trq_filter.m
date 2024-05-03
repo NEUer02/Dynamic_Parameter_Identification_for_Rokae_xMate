@@ -13,25 +13,31 @@ wn = wc / (ws / 2);
 [b, a] = butter(n, wn, 'low');
 % zero-phase digital filtering
 t_filt = filtfilt(b, a, t_raw);
-% t_filt = smooth(t_raw, 6, 'rloess');
-% t_filt = smooth(t_filt, 6, 'rloess');
+% t_filt = zeros(size(t_raw));
 
-% for i = 1 : 6
-%     t_filt(:, i) = smooth(t_filt(:, i), 300);
-% end
-% t_filt(:, 7) = smooth(t_filt(:, 7), 50);
+for i = 1 : 7
+    t_filt(:, i) = smooth(t_filt(:, i), 150);
+end
+t_filt = reshape(t_filt, 20001, 7);
+
 
 %% VISUALIZATION
-for i = 1:7
-    figure;
-	plot(t_raw(:, i), 'g', 'LineWidth', 1.0); hold on;
-	plot(t_filt(:, i), 'r', 'LineWidth', 0.5); hold off;
-	title(['第', num2str(i), '关节力矩滤波结果'], 'FontSize', 17, 'FontName', '宋体');
-	ylabel('关节力矩(Nm)', 'FontSize', 17, 'FontName', '宋体');
-	legend('滤波前', '滤波后', 'FontSize', 12, 'FontName', '宋体');
+traj_Ts = 0.001;
+[n_sample, ~] = size(t_raw);
+t = linspace(0, n_sample - 1, n_sample) * traj_Ts;
 
-    set(gcf, 'Position', [-1650 500 4200 800])
+for i = 1 : 7
+    figure;
+	plot(t, t_raw(:, i), 'g', 'LineWidth', 1.0); hold on;
+	plot(t, t_filt(:, i), 'r', 'LineWidth', 1.5); hold off;
+	% title(['No.', num2str(i), 'joint filted torque'], 'FontSize', 17);
+	ylabel('joint torque(N/m)', 'FontSize', 17);
+    xlabel('time(s)', 'FontSize', 17);
+	legend('raw', 'filted', 'FontSize', 17);
+
+    set(gcf, 'Position', [0 0 1080 480])
     ax = gca;
+    set(gca, 'LooseInset', [0,0,0,0]);
     exportgraphics(ax, [path_prefix, 'Joint', num2str(i), 'Torque.png'], "Resolution", 600);
 end
 
