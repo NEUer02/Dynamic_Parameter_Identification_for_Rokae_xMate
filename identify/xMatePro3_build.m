@@ -28,3 +28,6 @@ Lm7 = Link([0      0.2503 0 pi/2 ], 'modified');
 xMatePro3_modified = SerialLink([Lm1 Lm2 Lm3 Lm4 Lm5 Lm6 Lm7]);
 xMatePro3_modified.name = 'xMatePro3_modified';
 xMatePro3_modified.manufacturer = 'ROKEA';
+
+xMatePro3_modified.display();
+teach(xMatePro3_modified);

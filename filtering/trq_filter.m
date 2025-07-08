@@ -15,11 +15,7 @@ wn = wc / (ws / 2);
 t_filt = filtfilt(b, a, t_raw);
 % t_filt = zeros(size(t_raw));
 
-for i = 1 : 7
-    t_filt(:, i) = smooth(t_filt(:, i), 150);
-end
 t_filt = reshape(t_filt, 20001, 7);
-
 
 %% VISUALIZATION
 traj_Ts = 0.001;
@@ -28,17 +24,13 @@ t = linspace(0, n_sample - 1, n_sample) * traj_Ts;
 
 for i = 1 : 7
     figure;
-	plot(t, t_raw(:, i), 'g', 'LineWidth', 1.0); hold on;
-	plot(t, t_filt(:, i), 'r', 'LineWidth', 1.5); hold off;
+	plot(t, t_raw(:, i), 'LineWidth', 0.5); hold on;
+	plot(t, t_filt(:, i), 'r', 'LineWidth', 0.5); hold off;
 	% title(['No.', num2str(i), 'joint filted torque'], 'FontSize', 17);
-	ylabel('joint torque(N/m)', 'FontSize', 17);
-    xlabel('time(s)', 'FontSize', 17);
-	legend('raw', 'filted', 'FontSize', 17);
-
-    set(gcf, 'Position', [0 0 1080 480])
-    ax = gca;
-    set(gca, 'LooseInset', [0,0,0,0]);
-    exportgraphics(ax, [path_prefix, 'Joint', num2str(i), 'Torque.png'], "Resolution", 600);
+	ylabel('关节力矩(N/m)', 'FontSize', 12);
+    xlabel('时间(s)', 'FontSize', 12);
+	legend('滤波前', '滤波后', 'FontSize', 12);
+    grid on;
 end
 
 end

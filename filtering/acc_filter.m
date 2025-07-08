@@ -29,23 +29,23 @@ elseif mode == "sensor"
 	qdd_pre_filt = input;  % input is qd_raw
 end
 qdd_filt = filtfilt(b, a, qdd_pre_filt);
-for i = 1 : 7
-    qdd_filt(:, i) = smooth(qdd_filt(:, i), 200);
-end
+% for i = 1 : 7
+%     qdd_filt(:, i) = smooth(qdd_filt(:, i), 200);
+% end
 qdd_filt = reshape(qdd_filt, 20001, 7);
 
 %% VISUALIZATION
+traj_Ts = 0.001;
+[n_sample, ~] = size(qdd_pre_filt);
+t = linspace(0, n_sample - 1, n_sample) * traj_Ts;
+
 for i = 1:7
 	figure; 
-	plot(qdd_pre_filt(:,i), 'g', 'LineWidth', 1.5); hold on;
-	plot(qdd_filt(:, i), 'r', 'LineWidth', 0.5); hold off;
-	title(['第', num2str(i), '关节加速度滤波结果'], 'FontSize', 17, 'FontName', '宋体');
-	ylabel('关节加速度(rad/s^{2})', 'FontSize', 17, 'FontName', '宋体');
+	plot(t, qdd_pre_filt(:,i), 'g', 'LineWidth', 1.5); hold on;
+	plot(t, qdd_filt(:, i), 'r', 'LineWidth', 1.5); hold off;
+	% title(['第', num2str(i), '关节加速度滤波结果'], 'FontSize', 12, 'FontName', '宋体');
+	ylabel('关节加速度(rad/s^{2})', 'FontSize', 12, 'FontName', '宋体');
 	legend('滤波前', '滤波后', 'FontName', '宋体', 'FontSize', 12);
-
-    set(gcf, 'Position', [-1650 500 4200 800]);
-    ax = gca;
-    exportgraphics(ax, [path_prefix, 'Joint', num2str(i), 'Acc.png'], "Resolution", 100);
 end
 
 end

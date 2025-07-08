@@ -9,7 +9,7 @@
 addpath('.\utils\');
 %% PARAMETERS
 % sampling period
-traj_Ts = 0.1;
+traj_Ts = 0.01;
 % trajectory fundamental frequency
 traj_f = 0.05;
 % trajectory fundamental frequency in radian
@@ -28,6 +28,7 @@ pnum_min = 57;
 
 %% SOLVE OPTIMIZATION PROBLEM
 opt_x0 = zeros(77, 1) + 0.01;		% initial value
+opt_x0(11 : 11 : 77, 1) = [0; pi/6; 0; pi/3; 0; -pi/2; 0];
 object = @optimize_traj_object_fun_math;
 nonlcon = @optimize_traj_nonl_constraints;
 options = optimoptions(@fmincon, 'MaxIterations', 10000, 'MaxFunctionEvaluations', 10000);

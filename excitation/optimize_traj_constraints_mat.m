@@ -11,10 +11,10 @@ function [A, b, Aeq, beq] = optimize_traj_constraints_mat(wf, Ts, N)
 
 % zeros row vector of specified length
 % o11 = zeros(1, 11);
-o7 = zeros(7, 1) * 1e-4;
+o7 = zeros(7, 1) + 1e-6;
 % initial configuration
-% q_init = [0; pi/6; 0; pi/3; 0; pi/2; 0];
-q_init = [0; 0; 0; 0; 0; 0; 0];
+q_init = [0; pi/6; 0; pi/3; 0; -pi/2; 0];
+% q_init = [0; 0; 0; 0; 0; 0; 0];
 
 A_ = zeros(7*3, 77);
 A = zeros(7*2*3*(N-1), 77); b = zeros(7*2*3*(N-1), 1);
@@ -65,15 +65,20 @@ for k = 0:N
         % b = [q1, q2, q3, q4, q5, q6, q7, qd1, qd2, qd3, qd4, qd5, qd6, qd7,
         %      qdd1, qdd2, qdd3, qdd4, qdd5, qdd6, qdd7]
 
-        s_ind = 42 * (k-1) + 1; e_ind = 42 * k;
+        s_ind = 42 * (k-1) + 1; 
+        e_ind = 42 * k;
         b(s_ind:e_ind, :) = b_;
         A(s_ind:e_ind, :) = [A_; -A_];
-    elseif (k == 0)     % EQUALITY CONSTRAINTS s.t. A(q0, qd0, qdd0)x=b_init
+
+    % EQUALITY CONSTRAINTS s.t. A(q0, qd0, qdd0)x=b_init
+    elseif (k == 0)     
 		beq_ = [q_init; o7; o7];
 
         beq(1:21, :) = beq_;
         Aeq(1:21, :) = A_;
-    elseif (k == N)     % EQUALITY CONSTRAINTS s.t. A(qn, qdn, qddn)x=b_init
+
+    % EQUALITY CONSTRAINTS s.t. A(qn, qdn, qddn)x=b_init
+    elseif (k == N)     
         beq_ = [q_init; o7; o7];
 
         Aeq(22:42, :) = A_;

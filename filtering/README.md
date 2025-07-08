@@ -1,3 +1,10 @@
+**该部分需要MATLAB版本支持[mlx文件](https://ww2.mathworks.cn/help/matlab/matlab_prog/live-script-file-format.html)！**
+原仓库的run_filtering.m文件文件已删除，替代文件为run_filtering.mlx文件。
+替换文件将关节的位置、速度、加速度和力矩作为一个整体文件进行打包。
+同时data文件夹下添加了若干条实机数据。
+
+# 以下为原仓库的README
+
 This directory contains all the necessary codes for data filtering. We have integrated all the necessary MATLAB codes in `run_filtering.m`. Thus, you do not need to run these scripts independently. Read the following descriptions and codes for further details.
 
 ## Usage:

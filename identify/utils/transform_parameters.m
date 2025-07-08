@@ -38,6 +38,7 @@ MZ6 = m6 * lc6z;
 MZ7 = m7 * lc7z;
 
 % XXi
+XX1 = I1xx + m1 * (lc1y^2 + lc1z^2);
 XX2 = I2xx + m2 * (lc2y^2 + lc2z^2);
 XX3 = I3xx + m3 * (lc3y^2 + lc3z^2);
 XX4 = I4xx + m4 * (lc4y^2 + lc4z^2);
@@ -46,6 +47,7 @@ XX6 = I6xx + m6 * (lc6y^2 + lc6z^2);
 XX7 = I7xx + m7 * (lc7y^2 + lc7z^2);
 
 % XYi
+XY1 = I1xy - m1 * lc1x * lc1y;
 XY2 = I2xy - m2 * lc2x * lc2y;
 XY3 = I3xy - m3 * lc3x * lc3y;
 XY4 = I4xy - m4 * lc4x * lc4y;
@@ -54,6 +56,7 @@ XY6 = I6xy - m6 * lc6x * lc6y;
 XY7 = I7xy - m7 * lc7x * lc7y;
 
 %XZi
+XZ1 = I1xz - m1 * lc1x * lc1z;
 XZ2 = I2xz - m2 * lc2x * lc2z;
 XZ3 = I3xz - m3 * lc3x * lc3z;
 XZ4 = I4xz - m4 * lc4x * lc4z;
@@ -62,14 +65,16 @@ XZ6 = I6xz - m6 * lc6x * lc6z;
 XZ7 = I7xz - m7 * lc7x * lc7z;
 
 % YYi
-YY2 = I2yy + m1 * (lc2x^2 + lc2z^2);
-YY3 = I3yy + m1 * (lc3x^2 + lc3z^2);
-YY4 = I4yy + m1 * (lc4x^2 + lc4z^2);
-YY5 = I5yy + m1 * (lc5x^2 + lc5z^2);
-YY6 = I6yy + m1 * (lc6x^2 + lc6z^2);
-YY7 = I7yy + m1 * (lc7x^2 + lc7z^2);
+YY1 = I1yy + m1 * (lc1x^2 + lc1z^2);
+YY2 = I2yy + m2 * (lc2x^2 + lc2z^2);
+YY3 = I3yy + m3 * (lc3x^2 + lc3z^2);
+YY4 = I4yy + m4 * (lc4x^2 + lc4z^2);
+YY5 = I5yy + m5 * (lc5x^2 + lc5z^2);
+YY6 = I6yy + m6 * (lc6x^2 + lc6z^2);
+YY7 = I7yy + m7 * (lc7x^2 + lc7z^2);
 
 %YZi
+YZ1 = I1yz - m1 * lc1y * lc1z;
 YZ2 = I2yz - m2 * lc2y * lc2z;
 YZ3 = I3yz - m3 * lc3y * lc3z;
 YZ4 = I4yz - m4 * lc4y * lc4z;
@@ -110,7 +115,18 @@ XXR7 = XX7 - YY7;
 ZZR7 = ZZ7;
 MYR7 = MY7;
 
-base_inertial_parameters = [ZZR1, ...
+base_inertial_parameters = [
+    m1, m2, m3, m4, m5, m6, m7, ...
+    MX1, MX2, MX3, MX4, MX5, MX6, MX7, ...
+    MY1, MY2, MY3, MY4, MY5, MY6, MY7, ...
+    MZ1, MZ2, MZ3, MZ4, MZ5, MZ6, MZ7, ...
+    XX1, XX2, XX3, XX4, XX5, XX6, XX7, ...
+    XY1, XY2, XY3, XY4, XY5, XY6, XY7, ...
+    XZ1, XZ2, XZ3, XZ4, XZ5, XZ6, XZ7, ...
+    YY1, YY2, YY3, YY4, YY5, YY6, YY7, ...
+    YZ1, YZ2, YZ3, YZ4, YZ5, YZ6, YZ7, ...
+    ZZ1, ZZ2, ZZ3, ZZ4, ZZ5, ZZ6, ZZ7, ...
+    ZZR1, ...
     XXR2, XY2, XZ2, YZ2, ZZR2, MX2, MYR2, ...
     XXR3, XY3, XZ3, YZ3, ZZR3, MX3, MYR3, ...
     XXR4, XY4, XZ4, YZ4, ZZR4, MX4, MYR4, ...

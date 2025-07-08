@@ -20,3 +20,6 @@
 
 元组：通道数 $\times$帧长度 的数组；
 
+LSTM_net_backup.mat 参数部分是两步法辨识结果，LSTM网络按照semi-parameters训练；
+LSTM_net_Stribeck-20250113 参数部分是一步辨识的。
+

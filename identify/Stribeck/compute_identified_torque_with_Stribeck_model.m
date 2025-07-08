@@ -1,6 +1,5 @@
-function [output] = compute_identified_torque_with_Stribeck_model(parameters)
+function [output] = compute_identified_torque_with_Stribeck_model(parameters, qd_filt)
 %% 准备工作与参数加载
-qd_filt = evalin('base', 'qd_filt');
 ww = evalin('base', 'ww');
 gamma = evalin('base', 'gamma');
 n_parameters = evalin('base', 'n_parameters');

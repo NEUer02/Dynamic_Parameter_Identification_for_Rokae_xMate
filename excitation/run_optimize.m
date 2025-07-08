@@ -11,11 +11,11 @@ optimize_traj_main;
 
 % save to mat
 clear ans;
-save('.\data\opt_x.mat', 'opt_x');
+save('.\data\No2_excitation_trajectory_parameters_0-30-0-60-0-270-0.mat', 'opt_x');
 
 % save to txt
 addpath('.\utils\')
-mat2txt('.\data\opt_x.txt', opt_x);
+mat2txt('.\data\No2_excitation_trajectory_parameters_0-30-0-60-0-270-0.txt', opt_x);
 
 optimal_traj_vis();
 

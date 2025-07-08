@@ -21,14 +21,12 @@ t = linspace(0, n_sample - 1, n_sample) * traj_Ts;
 for i = 1:7
     figure;
     plot(t, q_raw(:, i), 'g', 'LineWidth', 1.0); hold on;
-    plot(t, q_filt(:, i), 'r', 'LineWidth', 0.5); hold off;
-    title(['第', num2str(i), '关节位置滤波结果'], 'FontSize', 17, 'FontName', '宋体');
-    ylabel('关节角度(rad)', 'FontSize', 17, 'FontName', '宋体');
+    plot(t, q_filt(:, i), 'r', 'LineWidth', 1.0); hold off;
+    % title(['第', num2str(i), '关节位置滤波结果'], 'FontSize', 12, 'FontName', '宋体');
+    ylabel('关节角度(rad)', 'FontSize', 12, 'FontName', '宋体');
+    xlabel('时间(s)', 'FontSize', 12, 'FontName', '宋体');
     legend('滤波前', '滤波后', 'FontName', '宋体', 'FontSize', 12);
-    set(gcf, 'Position', [-1650 500 4200 800])
-    ax = gca;
-    set(gca, 'LooseInset', [0,0,0,0]);
-    exportgraphics(ax, [path_prefix, 'Joint', num2str(i), 'Rad.png'], "Resolution", 100);
+    grid on;
 end
 
 end
